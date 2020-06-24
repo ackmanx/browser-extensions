@@ -1,0 +1,40 @@
+#blanket-main {
+    margin-top: 50px !important;
+    background-color: white !important;
+}
+
+#blanket-main .bl-title {
+    background-color: white;
+}
+
+#blanket-main .bl-success {
+    color: rgba(0, 128, 0, .4);
+}
+
+#blanket-main .bl-success a {
+    color: rgba(0, 0, 0, .4);
+}
+
+#blanket-main a.bl-logo {
+    color: black !important;
+}
+
+#blanket-main .grand-total {
+    padding-top: 20px;
+    background-color: white;
+}
+
+#blanket-main > div.blanket.grand-total.bl-error > div:nth-child(1),
+#blanket-main > div.blanket.grand-total.bl-error > div:nth-child(2),
+#blanket-main > div.blanket.grand-total.bl-error > div:nth-child(3) {
+    color: green !important;
+}
+
+.hit {
+    background-color: #C3E6D6;
+}
+
+.blanket {
+    padding: 10px 0 10px 0 !important;
+    border-bottom: 1px solid #949494 !important;
+}

@@ -1,0 +1,29 @@
+input {
+    /* For some reason setting font-family on body is ignored with input and overrided by the user-agent stylesheet */
+    font-family: sans-serif;
+}
+
+/* todo: probably want to put the label and searchbar into a container and apply sizing to that instead of both */
+#loading-label {
+    width: 780px;
+    height: 40px;
+    font-size: 18px;
+    outline: none;
+    border: none;
+    padding-bottom: 10px;
+}
+
+#searchBar {
+    width: 780px;
+    height: 40px;
+    font-size: 18px;
+    outline: none;
+    border: none;
+    display: none;
+}
+
+#search-bar-view {
+    width: 100%;
+    position: fixed;
+    top: 0;
+}

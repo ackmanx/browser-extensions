@@ -1,0 +1,13 @@
+.jasmine_html-reporter {
+    background-color: white;
+}
+
+.jasmine_html-reporter .failures .spec-detail .description {
+    font-size: 14px;
+    padding: 5px;
+    background-color: #8C371F;
+}
+
+.jasmine_html-reporter .bar.failed {
+    color: white;
+}

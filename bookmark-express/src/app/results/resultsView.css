@@ -1,0 +1,57 @@
+.search-hit {
+    background-color: yellow;
+}
+
+.selected {
+    background-color: #C2FFBA;
+}
+
+ul {
+    width: 780px;
+    margin: 0 0 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 18px;
+}
+
+ul li {
+    margin: 0;
+    padding: 10px;
+    overflow-wrap: break-word;
+}
+
+ul li:last-child {
+    margin-bottom: 10px;
+}
+
+ul li a.bookmark-link {
+    text-decoration: none;
+}
+
+.folderPath {
+    font-size: 14px;
+}
+
+.url {
+    display: inline-block;
+    width: 100%;
+    font-size: 12px;
+    color: gray;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+ul li div.left-panel {
+    margin-top: 3px;
+    margin-right: 10px;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+ul li div.right-panel {
+    display: inline-block;
+    width: 725px
+}

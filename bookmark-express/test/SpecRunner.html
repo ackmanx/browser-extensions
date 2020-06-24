@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Jasmine Spec Runner v2.1.3</title>
+
+    <link rel="shortcut icon" type="image/png" href="lib/jasmine-2.1.3/jasmine_favicon.png">
+    <link rel="stylesheet" href="lib/jasmine-2.1.3/jasmine.css">
+    <link rel="stylesheet" href="css/jasmine-overrides.css">
+    <link rel="stylesheet" href="css/blanket-overrides.css">
+
+    <!-- These are from Jasmine's boilerplate -->
+    <script src="lib/jasmine-2.1.3/jasmine.js"></script>
+    <script src="lib/jasmine-2.1.3/jasmine-html.js"></script>
+    <script src="lib/jasmine-2.1.3/boot.js"></script>
+
+    <!--
+        NOTE FOR NEW TESTS
+        Every new test needs to be included here at the bottom
+        All dependencies for each test must also be included
+        I think all tests have to be in folder spec too
+    -->
+
+    <!-- Testing Library Imports -->
+    <!--
+        NOTE FOR BLANKET.JS CODE COVERAGE
+        Blanket supports Jasmine via an adapter they provide
+        Add data-cover attribute to any source file to run coverage on
+        Results of code coverage are shown at bottom of Jasmine's SpecRunner report
+        Because you have to include files here, it won't report on files not added
+        Coverage seems to be reported on lines used or not, so a ternary will show as a hit even though only one condition was evaluated
+    -->
+    <script src="lib/blanket.min.js" data-cover-adapter="lib/jasmine-2.x-blanket.js"></script>
+
+    <script src="lib/sinon-1.17.1.js"></script>
+
+
+    <!-- Library imports -->
+    <script src="../src/jslib/jquery-min.js"></script>
+    <script src="../src/jslib/underscore-min.js"></script>
+    <script src="../src/jslib/backbone-min.js"></script>
+    <script src="../src/jslib/spark-md5.min.js"></script>
+    <script src="../src/jslib/mustache-min.js"></script>
+
+    <!-- My app imports -->
+    <script src="../src/app/global/namespace.js" data-cover></script>
+    <script src="../src/app/global/util.js" data-cover></script>
+
+    <script src="../src/app/results/resultsTemplate.js" data-cover></script>
+
+    <script src="../src/app/global/ConfigModel.js" data-cover></script>
+
+    <script src="../src/app/search/SearchView.js" data-cover></script>
+    <script src="../src/app/results/ResultsView.js" data-cover></script>
+
+    <!-- Include my Jasmine specs... -->
+    <script src="spec/resultsViewSpec.js" data-cover></script>
+    <script src="spec/configSpec.js" data-cover></script>
+    <script src="spec/utilSpec.js" data-cover></script>
+</head>
+<body>
+</body>
+</html>

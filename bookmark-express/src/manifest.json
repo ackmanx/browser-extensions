@@ -1,0 +1,30 @@
+{
+    "manifest_version": 2,
+    "name": "Bookmark Express Dev",
+    "description": "This extension displays a list of your bookmarks filtered by instant search. That's it.",
+    "version": "8.1",
+    "browser_action": {
+        "default_popup": "app/popup.html"
+    },
+    "background": {
+        "page": "app/bg.html"
+    },
+    "permissions": [
+        "bookmarks",
+        "chrome://favicon/"
+    ],
+    "icons": {
+        "48": "images/app/icon48-dev.png",
+        "128": "images/app/icon128-dev.png"
+    },
+    "commands": {
+        "_execute_browser_action": {
+            "suggested_key": {
+                "windows": "Ctrl+Shift+K",
+                "mac": "MacCtrl+Shift+K",
+                "chromeos": "Ctrl+Shift+K",
+                "linux": "Ctrl+Shift+K"
+            }
+        }
+    }
+}

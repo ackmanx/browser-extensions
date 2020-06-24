@@ -1,0 +1,49 @@
+-------------------------------------------------------------
+- Ideas
+-------------------------------------------------------------
+
+M Incognito mode should be preserved when opening a bookmark from it
+
+L Documentation
+    How to install Blanket JS and what it does
+    What Sinon JS does
+    How to add new tests
+
+L Add a "frequency chart" to show how little one uses their bookmarks
+
+L Add Loading timer, that alerts the user of a potential error
+
+M Provide way to update bookmarks either within or link to other bookmark manager
+
+M Option to sort results by date added
+
+M If no category exists, remove the row the text would live in (right now it's blank)
+
+M Truncate and eclipse URL
+    Hover shows entire URL in tooltip
+
+H Make entire row clickable
+
+H Show message if no results are found
+
+
+-------------------------------------------------------------
+- Bugs
+-------------------------------------------------------------
+
+L Horizontal scroll bar shows up. It shouldn't.
+    Shows up on 'java' but not 'je'
+
+M Keyboard navigation should work outside of the input box having focus
+
+M Keyboard navigation up goes under the search input
+
+
+-------------------------------------------------------------
+- Other
+-------------------------------------------------------------
+
+Icon:
+✫
+OPEN CENTRE BLACK STAR
+Unicode: U+272B, UTF-8: E2 9C AB

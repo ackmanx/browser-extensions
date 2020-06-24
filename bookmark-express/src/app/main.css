@@ -1,0 +1,8 @@
+body {
+    width: 780px; /* Chrome allows max of 800px width. We're allowing extra space for margins and stuff */
+    max-width: 780px;
+    margin: 10px 10px 0 10px;
+    padding: 0;
+    height: 33px;
+    font-family: sans-serif;
+}

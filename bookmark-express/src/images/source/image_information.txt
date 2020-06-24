@@ -1,0 +1,18 @@
+File names correspond to the images Google has slots for in the extensions edit page.
+
+App Icon should be 128 canvas size, but 96 for actual icon size.
+
+Star should be smaller than the circle, centered and...
+    top: 5px
+    bottom: 16px
+
+Font: American Typewriter
+
+
+
+Store Screenshot:
+    Screenshot the whole screen and use Pixelmator to crop using a 1280x800 crop
+
+
+
+*** I don't think the icon is correct. It doesn't appear to be square. Pixelmator is being mean and I can't resize it.

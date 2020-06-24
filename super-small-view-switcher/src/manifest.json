@@ -1,0 +1,27 @@
+{
+  "name": "Super Small View Switcher",
+  "version": "0.8",
+  "description": "That's right!",
+  "permissions": [
+    "cookies",
+    "tabs",
+    "activeTab",
+    "http://*/*",
+    "https://*/*",
+    "declarativeContent"
+  ],
+  "icons": {
+    "16": "app-icon-unknown.png",
+    "48": "app-icon-unknown.png",
+    "128": "app-icon-unknown.png"
+  },
+  "page_action": {
+    "default_icon": "app-icon-unknown.png"
+  },
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "manifest_version": 2
+}

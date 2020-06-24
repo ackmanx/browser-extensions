@@ -1,0 +1,59 @@
+<!doctype html>
+<!--
+ This page is shown when the extension button is clicked, because the
+ "browser_action" field in manifest.json contains the "default_popup" key with
+ value "popup.html".
+-->
+<html>
+<head>
+    <title>Bookmark Express</title>
+
+    <!-- CSS ------------------------------------------------------------------------------------------------------- -->
+    <link href="main.css" rel="stylesheet">
+    <link href="results/resultsView.css" rel="stylesheet">
+    <link href="search/searchView.css" rel="stylesheet">
+
+    <!-- JavaScript - Libraries ------------------------------------------------------------------------------------ -->
+    <script src="../jslib/spark-md5.min.js"></script>
+    <script src="../jslib/jquery-min.js"></script>
+    <script src="../jslib/underscore-min.js"></script>
+    <script src="../jslib/backbone-min.js"></script>
+    <script src="../jslib/mustache-min.js"></script>
+    <!--
+        Almond is last because not all libraries define with AMD using a name
+        Almond requires that ALL modules using define provide a name when defined
+        To get around this, I've made my own modules exporting the library globals
+     -->
+    <script src="../jslib/almond.js"></script>
+    <script src="global/definitions.js"></script>
+
+    <!-- JavaScript - Stuff used globally -------------------------------------------------------------------------- -->
+    <script src="global/namespace.js"></script>
+    <script src="global/keys.js"></script>
+    <script src="global/util.js"></script>
+
+    <!-- JavaScript - Mustache templates -->
+    <script src="results/resultsTemplate.js"></script>
+
+    <!-- JavaScript - Backbone classes ----------------------------------------------------------------------------- -->
+    <script src="global/ConfigModel.js"></script>
+    <script src="search/SearchView.js"></script>
+    <script src="results/ResultsView.js"></script>
+
+    <!-- JavaScript - Main App ------------------------------------------------------------------------------------- -->
+    <script src="popup.js"></script>
+</head>
+<body>
+
+<!-- This is shown on extension load while we update our cache. It will hide after caching is complete. -->
+<span id="loading-label">Loading...</span>
+
+<!-- This is hidden on extension load while we update our cache. It will show after caching is complete. -->
+<span id="search-bar-view"></span>
+
+<ul id="bookmarks">
+    <!-- Results will get generated here -->
+</ul>
+
+</body>
+</html>
