@@ -1,14 +1,15 @@
-const whitelist = [
+const skiplist = [
     'chrome://',
     'chrome-search',
     'youtube.com',
-    'gstatic.com', //youtube wont work without this whitelisted too
-    'about:blank', //youtube wont work without this whitelisted too
+    'gstatic.com', //youtube wont work without this being skipped too
+    'about:blank', //youtube wont work without this being skipped too
     'google.com',
 ]
 
 chrome.webNavigation.onCompleted.addListener(function(page) {
-    if (whitelist.some(urlToSkip => page.url.includes(urlToSkip))) {
+    // In order to allow video from certain sites, we have to skip searching for video on certain domains
+    if (skiplist.some(urlToSkip => page.url.includes(urlToSkip))) {
         return
     }
 
