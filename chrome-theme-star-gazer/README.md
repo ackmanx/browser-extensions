@@ -6,4 +6,6 @@ This brighten ups things a bit but keeps the same graphics
 
 ## Installation
 
-Install it like a regular Chrome extension
+Enable developer mode and load the folder with the manifest to develop
+
+To deploy, just zip the folder and then that zip can be dragged into Chrome's extensions page
