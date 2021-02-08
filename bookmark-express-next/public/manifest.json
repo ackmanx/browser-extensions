@@ -9,10 +9,7 @@
     "background": {
         "page": "background.html"
     },
-    "permissions": [
-        "bookmarks",
-        "chrome://favicon/"
-    ],
+    "permissions": ["bookmarks", "chrome://favicon/"],
     "icons": {
         "48": "images/icon48-dev.png",
         "128": "images/icon128-dev.png"
