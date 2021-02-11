@@ -4,7 +4,7 @@ import { Container, TextField } from '@material-ui/core'
 function App() {
     return (
         <Container>
-            <TextField label='Search' variant='outlined' />
+            <TextField label='Search' variant='outlined' autoFocus />
         </Container>
     )
 }
