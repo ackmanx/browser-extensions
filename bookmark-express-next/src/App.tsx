@@ -1,19 +1,13 @@
 import React from 'react'
-import { Container, TextField } from '@material-ui/core'
-import { browser } from "webextension-polyfill-ts";
+import { Container } from '@material-ui/core'
+import { Results } from './Results'
+import { SearchBar } from './SearchBar'
 
-function App() {
-
-    const something = async () => {
-        const bookmarks = await browser.bookmarks.search('java')
-        console.log(bookmarks)
-    }
-
+export function App() {
     return (
         <Container>
-            <TextField label='Search' variant='outlined' autoFocus onClick={something}/>
+            <SearchBar />
+            <Results />
         </Container>
     )
 }
-
-export default App
