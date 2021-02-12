@@ -1,27 +1,32 @@
 import React from 'react'
-import { Container } from '@material-ui/core'
 
 export function Results() {
     return (
-        <Container>
-            <ul>
-                <li>I am a result</li>
-                <li>I am a result</li>
-                <li>I am a result</li>
-                <li>I am a result</li>
-                <li>I am a result</li>
-                <li>I am a result</li>
-                <li>I am a result</li>
-                <li>I am a result</li>
-                <li>I am a result</li>
-                <li>I am a result</li>
-                <li>I am a result</li>
-                <li>I am a result</li>
-                <li>I am a result</li>
-                <li>I am a result</li>
-                <li>I am a result</li>
-                <li>I am a result</li>
-            </ul>
-        </Container>
+        <ul>
+            <li>
+                <div>What is the Execution Context & Stack in JavaScript? by David Shariff</div>
+                <div>
+                    https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_Operators#Logical_AND
+                </div>
+            </li>
+            <li>
+                <div>What is the Execution Context & Stack in JavaScript? by David Shariff</div>
+                <div>
+                    https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_Operators#Logical_AND
+                </div>
+            </li>
+            <li>
+                <div>What is the Execution Context & Stack in JavaScript? by David Shariff</div>
+                <div>
+                    https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_Operators#Logical_AND
+                </div>
+            </li>
+            <li>
+                <div>What is the Execution Context & Stack in JavaScript? by David Shariff</div>
+                <div>
+                    https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_Operators#Logical_AND
+                </div>
+            </li>
+        </ul>
     )
 }
