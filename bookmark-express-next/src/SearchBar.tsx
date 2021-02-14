@@ -6,7 +6,6 @@ import ResultsContext from './ResultsContext'
 export function SearchBar() {
     const resultsContext = useContext(ResultsContext)
 
-    //todo: This should have a debounce
     const handleSearch = async (event: ChangeEvent<HTMLInputElement>) => {
         const query = event.target.value
 

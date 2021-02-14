@@ -22,7 +22,7 @@ export function Results() {
                 if (!result.url) return
 
                 return (
-                    <ListItem>
+                    <ListItem key={result.id}>
                         <ListItemAvatar>
                             <Avatar>
                                 <FolderIcon />
