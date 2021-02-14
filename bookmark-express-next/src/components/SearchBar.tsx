@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useContext } from 'react'
 import { TextField } from '@material-ui/core'
 import { browser } from 'webextension-polyfill-ts'
-import ResultsContext from './ResultsContext'
+import ResultsContext from '../context/ResultsContext'
 
 export function SearchBar() {
     const resultsContext = useContext(ResultsContext)

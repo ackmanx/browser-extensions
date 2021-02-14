@@ -9,7 +9,7 @@ import {
     ListItemText,
 } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
-import ResultsContext from './ResultsContext'
+import ResultsContext from '../context/ResultsContext'
 
 export function Results() {
     const resultsContext = useContext(ResultsContext)

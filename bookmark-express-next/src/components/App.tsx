@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Container } from '@material-ui/core'
 import { Results } from './Results'
 import { SearchBar } from './SearchBar'
-import ResultsContext from './ResultsContext'
+import ResultsContext from '../context/ResultsContext'
 import { Bookmarks } from 'webextension-polyfill-ts'
 
 export function App() {
