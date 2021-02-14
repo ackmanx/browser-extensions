@@ -8,7 +8,6 @@ import {
     ListItemSecondaryAction,
     ListItemText,
 } from '@material-ui/core'
-import FolderIcon from '@material-ui/icons/Folder'
 import DeleteIcon from '@material-ui/icons/Delete'
 import ResultsContext from './ResultsContext'
 
@@ -17,21 +16,16 @@ export function Results() {
 
     return (
         <List>
-            {resultsContext.results.map(result => {
+            {resultsContext.results.map((result) => {
                 //Hide folders
                 if (!result.url) return
 
                 return (
                     <ListItem key={result.id}>
                         <ListItemAvatar>
-                            <Avatar>
-                                <FolderIcon />
-                            </Avatar>
+                            <Avatar src={`chrome://favicon/${result.url}`} />
                         </ListItemAvatar>
-                        <ListItemText
-                            primary={result.title}
-                            secondary={result.id}
-                        />
+                        <ListItemText primary={result.title} secondary={result.id} />
                         <ListItemSecondaryAction>
                             <IconButton edge='end' aria-label='delete'>
                                 <DeleteIcon />
