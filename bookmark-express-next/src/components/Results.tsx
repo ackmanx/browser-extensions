@@ -21,7 +21,7 @@ export function Results() {
                 if (!result.url) return
 
                 return (
-                    <ListItem key={result.id}>
+                    <ListItem key={result.id} button>
                         <ListItemAvatar>
                             <Avatar src={`chrome://favicon/${result.url}`} />
                         </ListItemAvatar>
