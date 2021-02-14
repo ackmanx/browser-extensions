@@ -18,5 +18,5 @@ export function SearchBar() {
         resultsContext.updateResults(bookmarks)
     }
 
-    return <TextField label='Search' variant='outlined' fullWidth autoFocus onChange={handleSearch} />
+    return <TextField placeholder='start typing' variant='standard' fullWidth autoFocus onChange={handleSearch} />
 }

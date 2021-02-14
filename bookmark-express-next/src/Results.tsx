@@ -30,7 +30,7 @@ export function Results() {
                         </ListItemAvatar>
                         <ListItemText
                             primary={result.title}
-                            secondary={result.url}
+                            secondary={result.id}
                         />
                         <ListItemSecondaryAction>
                             <IconButton edge='end' aria-label='delete'>

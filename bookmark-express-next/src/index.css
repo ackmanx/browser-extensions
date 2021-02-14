@@ -1,3 +1,18 @@
 body {
-    width: 780px;
+    width: 770px;
+    margin: 10px 20px 0 10px;
+}
+
+/*
+ * Get rid of the ugly horizontal scrollbar issue
+ * We can't remove it entirely, but we can theme it so it's white
+ */
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: rgb(127, 127, 127);
 }

@@ -20,7 +20,7 @@ export function App() {
 
     return (
         <ResultsContext.Provider value={contextValue}>
-            <Container>
+            <Container disableGutters>
                 <SearchBar />
                 <Results />
             </Container>
