@@ -14,6 +14,10 @@ import ResultsContext from '../context/ResultsContext'
 export function Results() {
     const resultsContext = useContext(ResultsContext)
 
+    function handleOpenBookmark(url: string = '') {
+        window.open(url)
+    }
+
     return (
         <List>
             {resultsContext.results.map((result) => {
@@ -21,13 +25,13 @@ export function Results() {
                 if (!result.url) return
 
                 return (
-                    <ListItem key={result.id} button>
+                    <ListItem button key={result.id} onClick={() => handleOpenBookmark(result.url)}>
                         <ListItemAvatar>
                             <Avatar src={`chrome://favicon/${result.url}`} />
                         </ListItemAvatar>
                         <ListItemText primary={result.title} secondary={result.id} />
                         <ListItemSecondaryAction>
-                            <IconButton edge='end' aria-label='delete'>
+                            <IconButton edge='end'>
                                 <DeleteIcon />
                             </IconButton>
                         </ListItemSecondaryAction>
