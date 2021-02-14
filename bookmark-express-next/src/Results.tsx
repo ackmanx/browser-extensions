@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
     Avatar,
     IconButton,
@@ -10,26 +10,36 @@ import {
 } from '@material-ui/core'
 import FolderIcon from '@material-ui/icons/Folder'
 import DeleteIcon from '@material-ui/icons/Delete'
+import ResultsContext from './ResultsContext'
 
 export function Results() {
+    const resultsContext = useContext(ResultsContext)
+
     return (
         <List>
-            <ListItem>
-                <ListItemAvatar>
-                    <Avatar>
-                        <FolderIcon />
-                    </Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                    primary='What is the Execution Context & Stack in JavaScript? by David Shariff'
-                    secondary='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_Operators#Logical_AND'
-                />
-                <ListItemSecondaryAction>
-                    <IconButton edge='end' aria-label='delete'>
-                        <DeleteIcon />
-                    </IconButton>
-                </ListItemSecondaryAction>
-            </ListItem>
+            {resultsContext.results.map(result => {
+                //Hide folders
+                if (!result.url) return
+
+                return (
+                    <ListItem>
+                        <ListItemAvatar>
+                            <Avatar>
+                                <FolderIcon />
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                            primary={result.title}
+                            secondary={result.url}
+                        />
+                        <ListItemSecondaryAction>
+                            <IconButton edge='end' aria-label='delete'>
+                                <DeleteIcon />
+                            </IconButton>
+                        </ListItemSecondaryAction>
+                    </ListItem>
+                )
+            })}
         </List>
     )
 }
