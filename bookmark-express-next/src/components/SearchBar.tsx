@@ -1,10 +1,10 @@
 import React, { ChangeEvent, useContext } from 'react'
 import { TextField } from '@material-ui/core'
 import { browser } from 'webextension-polyfill-ts'
-import ResultsContext from '../context/ResultsContext'
+import AppContext from '../context/AppContext'
 
 export function SearchBar() {
-    const resultsContext = useContext(ResultsContext)
+    const resultsContext = useContext(AppContext)
 
     const handleSearch = async (event: ChangeEvent<HTMLInputElement>) => {
         const query = event.target.value

@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { CircularProgress, Container, makeStyles } from '@material-ui/core'
 import { Results } from './Results'
 import { SearchBar } from './SearchBar'
-import ResultsContext from '../context/ResultsContext'
+import AppContext, { AppContextInterface } from '../context/AppContext'
 import { Bookmarks } from 'webextension-polyfill-ts'
-import { buildCache } from '../utils/cache-utils'
+import { buildCache, Cache, defaultCache } from '../utils/cache-utils'
 
 interface Props {
     isCacheStale: boolean
@@ -22,7 +22,7 @@ export function App({ isCacheStale }: Props) {
 
     //todo: I feel like these context things should be defined in their own functions. Maybe a hook? Can hooks have state?
     const [results, setResults] = useState<Bookmarks.BookmarkTreeNode[]>([])
-    const [cache, setCache] = useState({})
+    const [cache, setCache] = useState<Cache>(defaultCache)
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
     useEffect(() => {
@@ -42,14 +42,14 @@ export function App({ isCacheStale }: Props) {
         setResults(newResults)
     }
 
-    const context = {
+    const context: AppContextInterface = {
         cache,
         results,
         updateResults,
     }
 
     return (
-        <ResultsContext.Provider value={context}>
+        <AppContext.Provider value={context}>
             {isLoading && (
                 <Container disableGutters className={classes.loading}>
                     <CircularProgress />
@@ -61,6 +61,6 @@ export function App({ isCacheStale }: Props) {
                     <Results />
                 </Container>
             )}
-        </ResultsContext.Provider>
+        </AppContext.Provider>
     )
 }

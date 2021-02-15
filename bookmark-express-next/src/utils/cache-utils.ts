@@ -10,6 +10,10 @@ interface BookmarkCacheEntry {
     path: string
 }
 
+export const defaultCache: Cache = {
+    bookmarks: {}
+}
+
 export async function isCacheStale() {
     const { children: bookmarks } = (await browser.bookmarks.getTree())[0]
 

@@ -9,10 +9,10 @@ import {
     ListItemText,
 } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
-import ResultsContext from '../context/ResultsContext'
+import AppContext from '../context/AppContext'
 
 export function Results() {
-    const resultsContext = useContext(ResultsContext)
+    const context = useContext(AppContext)
 
     function handleOpenBookmark(url: string = '') {
         window.open(url)
@@ -20,9 +20,11 @@ export function Results() {
 
     return (
         <List>
-            {resultsContext.results.map((result) => {
+            {context.results.map((result) => {
                 //Hide folders
                 if (!result.url) return
+
+                // const meta = context.cache
 
                 return (
                     <ListItem button key={result.id} onClick={() => handleOpenBookmark(result.url)}>
