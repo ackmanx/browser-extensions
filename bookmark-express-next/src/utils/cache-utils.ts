@@ -1,7 +1,11 @@
 import { Bookmarks, browser } from 'webextension-polyfill-ts'
 import md5 from 'md5'
 
-interface CacheEntry {
+interface Cache {
+    bookmarks: Record<string, BookmarkCacheEntry>
+}
+
+interface BookmarkCacheEntry {
     path: string
 }
 
@@ -16,14 +20,10 @@ export async function isCacheStale() {
 
 export async function buildCache() {
     const rootBookmarkTree = (await browser.bookmarks.getTree())[0]
-    return buildPaths(rootBookmarkTree, [], {})
+    return buildPaths(rootBookmarkTree, [], { bookmarks: {} })
 }
 
-function buildPaths(
-    bookmarkNode: Bookmarks.BookmarkTreeNode,
-    folderNameStack: string[],
-    cache: Record<string, CacheEntry>
-) {
+function buildPaths(bookmarkNode: Bookmarks.BookmarkTreeNode, folderNameStack: string[], cache: Cache) {
     //Everything has a title except the root node, and we don't want that in our stack
     if (bookmarkNode.title) {
         folderNameStack.push(bookmarkNode.title)
@@ -33,11 +33,11 @@ function buildPaths(
     if (!bookmarkNode.url) {
         bookmarkNode.children?.forEach((childNode) => buildPaths(childNode, folderNameStack, cache))
     } else {
-        if (!cache[bookmarkNode.id]) {
-            cache[bookmarkNode.id] = { path: '' }
+        if (!cache.bookmarks[bookmarkNode.id]) {
+            cache.bookmarks[bookmarkNode.id] = { path: '' }
         }
 
-        cache[bookmarkNode.id].path = folderNameStack.slice(0, -1).join(' / ')
+        cache.bookmarks[bookmarkNode.id].path = folderNameStack.slice(0, -1).join(' / ')
     }
 
     folderNameStack.pop()
