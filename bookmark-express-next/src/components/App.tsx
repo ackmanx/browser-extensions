@@ -42,14 +42,14 @@ export function App({ isCacheStale }: Props) {
         setResults(newResults)
     }
 
-    const contextValue = {
+    const context = {
         cache,
         results,
         updateResults,
     }
 
     return (
-        <ResultsContext.Provider value={contextValue}>
+        <ResultsContext.Provider value={context}>
             {isLoading && (
                 <Container disableGutters className={classes.loading}>
                     <CircularProgress />
