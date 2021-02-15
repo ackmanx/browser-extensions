@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CircularProgress, Container, makeStyles } from '@material-ui/core'
 import { Results } from './Results'
 import { SearchBar } from './SearchBar'
 import ResultsContext from '../context/ResultsContext'
 import { Bookmarks } from 'webextension-polyfill-ts'
+import { buildCache } from '../utils/cache-utils'
 
 interface Props {
     isCacheStale: boolean
@@ -23,6 +24,19 @@ export function App({ isCacheStale }: Props) {
     const [results, setResults] = useState<Bookmarks.BookmarkTreeNode[]>([])
     const [cache, setCache] = useState({})
     const [isLoading, setIsLoading] = useState<boolean>(true)
+
+    useEffect(() => {
+        async function run() {
+            if (isCacheStale) {
+                console.log(777, 'Changes to bookmarks detected... rebuilding cache')
+                setCache(await buildCache())
+            }
+
+            setIsLoading(false)
+        }
+
+        run()
+    }, [isCacheStale])
 
     function updateResults(newResults: Bookmarks.BookmarkTreeNode[]) {
         setResults(newResults)
