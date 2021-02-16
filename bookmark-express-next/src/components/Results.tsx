@@ -39,7 +39,7 @@ export function Results() {
                         <ListItemAvatar>
                             <Avatar src={`chrome://favicon/${result.url}`} />
                         </ListItemAvatar>
-                        <ListItemText primary={result.title} secondary={metaForResult.path} />
+                        <ListItemText primary={result.title} secondary={metaForResult.breadcrumbs} />
                         <ListItemSecondaryAction>
                             <IconButton edge='end' tabIndex={-1}>
                                 <DeleteIcon />

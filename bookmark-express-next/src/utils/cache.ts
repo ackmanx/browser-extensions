@@ -8,7 +8,7 @@ export interface Cache {
 }
 
 interface BookmarkCacheEntry {
-    path: string
+    breadcrumbs: string
     timesAccessed: number
 }
 
@@ -56,7 +56,7 @@ function processNode(
         bookmarkNode.children?.forEach((childNode) => processNode(childNode, folderNameStack, freshCache, staleCache))
     } else {
         freshCache.bookmarks[bookmarkNode.id] = {
-            path: folderNameStack.slice(0, -1).join(' / '),
+            breadcrumbs: folderNameStack.slice(0, -1).join(' / '),
             timesAccessed: staleCache.bookmarks[bookmarkNode.id].timesAccessed
         }
     }
