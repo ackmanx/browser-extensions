@@ -6,6 +6,8 @@ export interface AppContextInterface {
     cache: Cache
     results: Bookmarks.BookmarkTreeNode[]
     updateResults: (newResults: Bookmarks.BookmarkTreeNode[]) => void
+    query: string
+    setQuery: (query: string) => void
 }
 
 //I'm always providing values for the context on init, so default will never be necessary

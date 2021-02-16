@@ -25,6 +25,7 @@ export function App({ isCacheStale }: Props) {
     //todo: I feel like these context things should be defined in their own functions. Maybe a hook? Can hooks have state?
     const [results, setResults] = useState<Bookmarks.BookmarkTreeNode[]>([])
     const [cache, setCache] = useState<Cache>(defaultCache)
+    const [query, setQuery] = useState<string>('')
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
     useEffect(() => {
@@ -50,6 +51,8 @@ export function App({ isCacheStale }: Props) {
         cache,
         results,
         updateResults,
+        query,
+        setQuery
     }
 
     return (

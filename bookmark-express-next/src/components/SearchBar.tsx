@@ -26,6 +26,7 @@ export function SearchBar() {
 
         const bookmarks = (await browser.bookmarks.search(query)).filter((bookmark) => !isFolder(bookmark))
 
+        context.setQuery(query)
         context.updateResults(bookmarks)
     }
 

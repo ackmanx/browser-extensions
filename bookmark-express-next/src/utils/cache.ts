@@ -1,7 +1,7 @@
 import { Bookmarks, browser } from 'webextension-polyfill-ts'
 import md5 from 'md5'
 import { getBookmarksHash, getCache, saveBookmarksHash, saveCache } from './local-storage'
-import { isFolder } from './misc-utils'
+import { isFolder } from './misc'
 
 export interface Cache {
     bookmarks: Record<string, BookmarkCacheEntry>

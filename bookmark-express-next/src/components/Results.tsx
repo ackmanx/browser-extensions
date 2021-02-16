@@ -7,15 +7,26 @@ import {
     ListItemAvatar,
     ListItemSecondaryAction,
     ListItemText,
+    makeStyles,
 } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import AppContext from '../context/AppContext'
-import { isFolder } from '../utils/misc-utils'
+import { highlightText, isFolder } from '../utils/misc'
 import { Bookmarks } from 'webextension-polyfill-ts'
 import { saveCache } from '../utils/local-storage'
 
+const useStyles = makeStyles({
+    searchHit: {
+        '& .search-hit': {
+            backgroundColor: '#3576CB',
+            color: 'white',
+        }
+    },
+})
+
 export function Results() {
     const context = useContext(AppContext)
+    const classes = useStyles()
 
     function handleOpenBookmark(bookmark: Bookmarks.BookmarkTreeNode) {
         context.cache.bookmarks[bookmark.id].timesAccessed++
@@ -33,13 +44,16 @@ export function Results() {
                 if (isFolder(result)) return
 
                 const metaForResult = context.cache.bookmarks[result.id]
+                const titleWithHighlights = highlightText(result.title, context.query)
 
                 return (
                     <ListItem button key={result.id} onClick={() => handleOpenBookmark(result)}>
                         <ListItemAvatar>
                             <Avatar src={`chrome://favicon/${result.url}`} />
                         </ListItemAvatar>
-                        <ListItemText primary={result.title} secondary={metaForResult.breadcrumbs} />
+                        <ListItemText secondary={metaForResult.breadcrumbs}>
+                            <div className={classes.searchHit} dangerouslySetInnerHTML={{ __html: titleWithHighlights }} />
+                        </ListItemText>
                         <ListItemSecondaryAction>
                             <IconButton edge='end' tabIndex={-1}>
                                 <DeleteIcon />
