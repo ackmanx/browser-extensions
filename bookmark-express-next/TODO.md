@@ -1,11 +1,6 @@
 # Legacy Feature Parity
 ## Highlight search query occurrences
 
-## Allow selection of bookmarks via keyboard
-
-## Path
-
-
 # New Features
 ## Use high-resolution favicons
 I could have a service worker (is that allowed in an extension) or async task to look through for a manifest or apple icon entry in the document

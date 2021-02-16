@@ -24,14 +24,14 @@ export function Results() {
                 //Hide folders
                 if (!result.url) return
 
-                // const meta = context.cache
+                const metaForResult = context.cache.bookmarks[result.id]
 
                 return (
                     <ListItem button key={result.id} onClick={() => handleOpenBookmark(result.url)}>
                         <ListItemAvatar>
                             <Avatar src={`chrome://favicon/${result.url}`} />
                         </ListItemAvatar>
-                        <ListItemText primary={result.title} secondary={result.id} />
+                        <ListItemText primary={result.title} secondary={metaForResult.path} />
                         <ListItemSecondaryAction>
                             <IconButton edge='end'>
                                 <DeleteIcon />

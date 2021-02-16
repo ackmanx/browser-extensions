@@ -5,6 +5,8 @@ import { SearchBar } from './SearchBar'
 import AppContext, { AppContextInterface } from '../context/AppContext'
 import { Bookmarks } from 'webextension-polyfill-ts'
 import { buildCache, Cache, defaultCache } from '../utils/cache-utils'
+import { ErrorBoundary } from './ErrorBoundary'
+import { getCache } from '../utils/local-storage'
 
 interface Props {
     isCacheStale: boolean
@@ -30,6 +32,8 @@ export function App({ isCacheStale }: Props) {
             if (isCacheStale) {
                 console.log(777, 'Changes to bookmarks detected... rebuilding cache')
                 setCache(await buildCache())
+            } else {
+                setCache(getCache())
             }
 
             setIsLoading(false)
@@ -49,18 +53,20 @@ export function App({ isCacheStale }: Props) {
     }
 
     return (
-        <AppContext.Provider value={context}>
-            {isLoading && (
-                <Container disableGutters className={classes.loading}>
-                    <CircularProgress />
-                </Container>
-            )}
-            {!isLoading && (
-                <Container disableGutters>
-                    <SearchBar />
-                    <Results />
-                </Container>
-            )}
-        </AppContext.Provider>
+        <ErrorBoundary>
+            <AppContext.Provider value={context}>
+                {isLoading && (
+                    <Container disableGutters className={classes.loading}>
+                        <CircularProgress />
+                    </Container>
+                )}
+                {!isLoading && (
+                    <Container disableGutters>
+                        <SearchBar />
+                        <Results />
+                    </Container>
+                )}
+            </AppContext.Provider>
+        </ErrorBoundary>
     )
 }
