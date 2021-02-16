@@ -33,7 +33,7 @@ export function Results() {
                         </ListItemAvatar>
                         <ListItemText primary={result.title} secondary={metaForResult.path} />
                         <ListItemSecondaryAction>
-                            <IconButton edge='end'>
+                            <IconButton edge='end' tabIndex={-1}>
                                 <DeleteIcon />
                             </IconButton>
                         </ListItemSecondaryAction>
