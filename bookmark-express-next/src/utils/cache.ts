@@ -1,6 +1,7 @@
 import { Bookmarks, browser } from 'webextension-polyfill-ts'
 import md5 from 'md5'
 import { getBookmarksHash, saveBookmarksHash, saveCache } from './local-storage'
+import { isFolder } from './misc-utils'
 
 export interface Cache {
     bookmarks: Record<string, BookmarkCacheEntry>
@@ -11,7 +12,7 @@ interface BookmarkCacheEntry {
 }
 
 export const defaultCache: Cache = {
-    bookmarks: {}
+    bookmarks: {},
 }
 
 export async function isCacheStale() {
@@ -27,22 +28,21 @@ export async function isCacheStale() {
 
 export async function buildCache() {
     const rootBookmarkTree = (await browser.bookmarks.getTree())[0]
-    const cache = buildPaths(rootBookmarkTree, [], { bookmarks: {} })
+    const cache = processNode(rootBookmarkTree, [], { bookmarks: {} })
 
     saveCache(cache)
 
     return cache
 }
 
-function buildPaths(bookmarkNode: Bookmarks.BookmarkTreeNode, folderNameStack: string[], cache: Cache) {
-    //Everything has a title except the root node, and we don't want that in our stack
+function processNode(bookmarkNode: Bookmarks.BookmarkTreeNode, folderNameStack: string[], cache: Cache) {
+    //Every node has a title except the root node, and we don't want that in the breadcrumbs
     if (bookmarkNode.title) {
         folderNameStack.push(bookmarkNode.title)
     }
 
-    //Folders don't have url properties, so we know to go deeper
-    if (!bookmarkNode.url) {
-        bookmarkNode.children?.forEach((childNode) => buildPaths(childNode, folderNameStack, cache))
+    if (isFolder(bookmarkNode)) {
+        bookmarkNode.children?.forEach((childNode) => processNode(childNode, folderNameStack, cache))
     } else {
         if (!cache.bookmarks[bookmarkNode.id]) {
             cache.bookmarks[bookmarkNode.id] = { path: '' }

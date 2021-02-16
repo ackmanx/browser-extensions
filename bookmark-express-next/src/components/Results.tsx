@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import AppContext from '../context/AppContext'
+import {isFolder} from "../utils/misc-utils";
 
 export function Results() {
     const context = useContext(AppContext)
@@ -21,8 +22,7 @@ export function Results() {
     return (
         <List>
             {context.results.map((result) => {
-                //Hide folders
-                if (!result.url) return
+                if (isFolder(result)) return
 
                 const metaForResult = context.cache.bookmarks[result.id]
 

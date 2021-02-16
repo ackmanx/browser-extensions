@@ -4,7 +4,7 @@ import { Results } from './Results'
 import { SearchBar } from './SearchBar'
 import AppContext, { AppContextInterface } from '../context/AppContext'
 import { Bookmarks } from 'webextension-polyfill-ts'
-import { buildCache, Cache, defaultCache } from '../utils/cache-utils'
+import { buildCache, Cache, defaultCache } from '../utils/cache'
 import { ErrorBoundary } from './ErrorBoundary'
 import { getCache } from '../utils/local-storage'
 

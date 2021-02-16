@@ -1,6 +1,6 @@
 import React from 'react'
 import { Bookmarks } from 'webextension-polyfill-ts'
-import { Cache } from '../utils/cache-utils'
+import { Cache } from '../utils/cache'
 
 export interface AppContextInterface {
     cache: Cache

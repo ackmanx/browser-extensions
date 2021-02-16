@@ -1,4 +1,4 @@
-import { Cache } from './cache-utils'
+import { Cache } from './cache'
 
 export function getBookmarksHash() {
     return localStorage.getItem('bookmarks-hash')

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import '@fontsource/roboto'
 import './index.css'
 import { App } from './components/App'
-import { isCacheStale } from './utils/cache-utils'
+import { isCacheStale } from './utils/cache'
 
 isCacheStale().then((result) => {
     ReactDOM.render(
