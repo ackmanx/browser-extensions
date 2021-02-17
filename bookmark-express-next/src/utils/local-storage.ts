@@ -1,4 +1,4 @@
-import { Cache } from './cache'
+import { Cache, defaultCache } from './cache'
 
 export function getBookmarksHash() {
     return localStorage.getItem('bookmarks-hash')
@@ -12,7 +12,7 @@ export function getCache(): Cache {
     let cache: Cache
 
     try {
-        cache = JSON.parse(localStorage.getItem('cache') || '{}')
+        cache = JSON.parse(localStorage.getItem('cache') || JSON.stringify(defaultCache))
     } catch (e: any) {
         throw new Error('Yikes! Cache is malformed!')
     }

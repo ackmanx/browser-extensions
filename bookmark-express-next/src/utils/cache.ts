@@ -57,7 +57,7 @@ function processNode(
     } else {
         freshCache.bookmarks[bookmarkNode.id] = {
             breadcrumbs: folderNameStack.slice(0, -1).join(' / '),
-            timesAccessed: staleCache.bookmarks[bookmarkNode.id].timesAccessed
+            timesAccessed: staleCache.bookmarks[bookmarkNode.id]?.timesAccessed ?? 0,
         }
     }
 
