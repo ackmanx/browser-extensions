@@ -16,8 +16,6 @@ Options
 Delete
 Edit
 
-## New flat icon
-
 ## Options
 View/hide pieces of UI
     URL, Breadcrumbs
