@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Bookmark Express Next",
-    "description": "This extension displays a list of your bookmarks filtered by instant search. That's it.",
+    "description": "This extension displays a list of your bookmarks filtered by instant search. That's it. Oh, and now you can edit them too.",
     "version": "9.0",
     "browser_action": {
         "default_popup": "index.html"
@@ -11,8 +11,9 @@
     },
     "permissions": ["bookmarks", "chrome://favicon/"],
     "icons": {
-        "48": "images/icon48-dev.png",
-        "128": "images/icon128-dev.png"
+        "16": "images/icon16.png",
+        "48": "images/icon48.png",
+        "128": "images/icon128.png"
     },
     "commands": {
         "_execute_browser_action": {
