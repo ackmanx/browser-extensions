@@ -68,7 +68,12 @@ export function Results() {
                                     className={classes.title}
                                     dangerouslySetInnerHTML={{ __html: titleWithHighlights }}
                                 />
-                                <div className={classes.url} dangerouslySetInnerHTML={{ __html: urlWithHighlights }} />
+                                {context.userOptions.showUrl && (
+                                    <div
+                                        className={classes.url}
+                                        dangerouslySetInnerHTML={{ __html: urlWithHighlights }}
+                                    />
+                                )}
                             </>
                         </ListItemText>
                         <ListItemSecondaryAction>

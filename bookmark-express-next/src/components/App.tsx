@@ -7,6 +7,7 @@ import { Bookmarks } from 'webextension-polyfill-ts'
 import { buildCache, Cache, defaultCache } from '../utils/cache'
 import { ErrorBoundary } from './ErrorBoundary'
 import { getCache } from '../utils/local-storage'
+import { defaultUserOptions, UserOptions } from '../utils/options'
 
 interface Props {
     isCacheStale: boolean
@@ -25,6 +26,7 @@ export function App({ isCacheStale }: Props) {
     //todo: I feel like these context things should be defined in their own functions. Maybe a hook? Can hooks have state?
     const [results, setResults] = useState<Bookmarks.BookmarkTreeNode[]>([])
     const [cache, setCache] = useState<Cache>(defaultCache)
+    const [userOptions, setUserOptions] = useState<UserOptions>(defaultUserOptions)
     const [query, setQuery] = useState<string>('')
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
@@ -52,7 +54,9 @@ export function App({ isCacheStale }: Props) {
         results,
         updateResults,
         query,
-        setQuery
+        setQuery,
+        userOptions,
+        setUserOptions,
     }
 
     return (
