@@ -1,19 +1,11 @@
 import React, { ChangeEvent, useContext } from 'react'
-import { makeStyles, TextField } from '@material-ui/core'
+import { IconButton, InputAdornment, OutlinedInput } from '@material-ui/core'
+import SettingsIcon from '@material-ui/icons/Settings'
 import { browser } from 'webextension-polyfill-ts'
 import AppContext from '../context/AppContext'
 import { isFolder } from '../utils/misc'
 
-const useStyles = makeStyles({
-    search: {
-        '& .MuiInput-underline:after': {
-            borderBottomColor: '#3576CB',
-        },
-    },
-})
-
 export function SearchBar() {
-    const classes = useStyles()
     const context = useContext(AppContext)
 
     const handleSearch = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -31,13 +23,18 @@ export function SearchBar() {
     }
 
     return (
-        <TextField
-            className={classes.search}
+        <OutlinedInput
             fullWidth
             autoFocus
             placeholder='start typing'
-            variant='standard'
             onChange={handleSearch}
+            endAdornment={
+                <InputAdornment position='end'>
+                    <IconButton>
+                        <SettingsIcon />
+                    </IconButton>
+                </InputAdornment>
+            }
         />
     )
 }
