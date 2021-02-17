@@ -16,11 +16,21 @@ import { Bookmarks } from 'webextension-polyfill-ts'
 import { saveCache } from '../utils/local-storage'
 
 const useStyles = makeStyles({
-    searchHit: {
+    title: {
         '& .search-hit': {
             backgroundColor: '#3576CB',
             color: 'white',
-        }
+        },
+    },
+    url: {
+        fontSize: '12px',
+        fontStyle: 'italic',
+        color: 'gray',
+
+        '& .search-hit': {
+            backgroundColor: '#3576CB',
+            color: 'white',
+        },
     },
 })
 
@@ -45,6 +55,7 @@ export function Results() {
 
                 const metaForResult = context.cache.bookmarks[result.id]
                 const titleWithHighlights = highlightText(result.title, context.query)
+                const urlWithHighlights = highlightText(result.url ?? '', context.query)
 
                 return (
                     <ListItem button key={result.id} onClick={() => handleOpenBookmark(result)}>
@@ -52,7 +63,13 @@ export function Results() {
                             <Avatar src={`chrome://favicon/${result.url}`} />
                         </ListItemAvatar>
                         <ListItemText secondary={metaForResult.breadcrumbs}>
-                            <div className={classes.searchHit} dangerouslySetInnerHTML={{ __html: titleWithHighlights }} />
+                            <>
+                                <div
+                                    className={classes.title}
+                                    dangerouslySetInnerHTML={{ __html: titleWithHighlights }}
+                                />
+                                <div className={classes.url} dangerouslySetInnerHTML={{ __html: urlWithHighlights }} />
+                            </>
                         </ListItemText>
                         <ListItemSecondaryAction>
                             <IconButton edge='end' tabIndex={-1}>
