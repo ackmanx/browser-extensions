@@ -26,6 +26,7 @@ const useStyles = makeStyles({
         fontSize: '12px',
         fontStyle: 'italic',
         color: 'gray',
+        wordBreak: 'break-all',
 
         '& .search-hit': {
             backgroundColor: '#3576CB',
