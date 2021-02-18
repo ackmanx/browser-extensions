@@ -4,11 +4,14 @@ import '@fontsource/roboto'
 import './index.css'
 import { App } from './components/App'
 import { isCacheStale } from './utils/cache'
+import { ErrorBoundary } from './components/ErrorBoundary'
 
 isCacheStale().then((result) => {
     ReactDOM.render(
         <React.StrictMode>
-            <App isCacheStale={result} />
+            <ErrorBoundary>
+                <App isCacheStale={result} />
+            </ErrorBoundary>
         </React.StrictMode>,
         document.getElementById('root')
     )

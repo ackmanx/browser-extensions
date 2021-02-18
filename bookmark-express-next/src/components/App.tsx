@@ -5,7 +5,6 @@ import { SearchBar } from './SearchBar'
 import AppContext, { AppContextInterface } from '../context/AppContext'
 import { Bookmarks } from 'webextension-polyfill-ts'
 import { buildCache, Cache, defaultCache } from '../utils/cache'
-import { ErrorBoundary } from './ErrorBoundary'
 import { getCache, getUserOptions } from '../utils/storage'
 import { defaultUserOptions, UserOptions } from '../utils/options'
 
@@ -61,20 +60,18 @@ export function App({ isCacheStale }: Props) {
     }
 
     return (
-        <ErrorBoundary>
-            <AppContext.Provider value={context}>
-                {isLoading && (
-                    <Container disableGutters className={classes.loading}>
-                        <CircularProgress />
-                    </Container>
-                )}
-                {!isLoading && (
-                    <Container disableGutters>
-                        <SearchBar />
-                        <Results />
-                    </Container>
-                )}
-            </AppContext.Provider>
-        </ErrorBoundary>
+        <AppContext.Provider value={context}>
+            {isLoading && (
+                <Container disableGutters className={classes.loading}>
+                    <CircularProgress />
+                </Container>
+            )}
+            {!isLoading && (
+                <Container disableGutters>
+                    <SearchBar />
+                    <Results />
+                </Container>
+            )}
+        </AppContext.Provider>
     )
 }
