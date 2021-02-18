@@ -1,9 +1,11 @@
-function saveOptions(event) {
+function saveOptions() {
     chrome.storage.local.set({
         userOptions: {
-            showUrls: event.target.checked,
+            showBreadcrumbs: document.getElementById('show-breadcrumbs').checked,
+            showUrls: document.getElementById('show-urls').checked,
         },
     })
 }
 
-document.querySelector('input').addEventListener('click', saveOptions)
+document.getElementById('show-breadcrumbs').addEventListener('click', saveOptions)
+document.getElementById('show-urls').addEventListener('click', saveOptions)

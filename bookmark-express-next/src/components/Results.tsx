@@ -63,7 +63,7 @@ export function Results() {
                         <ListItemAvatar>
                             <Avatar src={`chrome://favicon/${result.url}`} />
                         </ListItemAvatar>
-                        <ListItemText secondary={metaForResult.breadcrumbs}>
+                        <ListItemText secondary={context.userOptions.showBreadcrumbs && metaForResult.breadcrumbs}>
                             <>
                                 <div
                                     className={classes.title}
