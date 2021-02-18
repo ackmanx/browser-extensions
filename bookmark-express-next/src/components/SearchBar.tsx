@@ -22,6 +22,8 @@ export function SearchBar() {
         context.updateResults(bookmarks)
     }
 
+    const handleOpenOptionsPage = () => browser.runtime.openOptionsPage()
+
     return (
         <OutlinedInput
             fullWidth
@@ -29,7 +31,7 @@ export function SearchBar() {
             placeholder='start typing'
             onChange={handleSearch}
             endAdornment={
-                <InputAdornment position='end'>
+                <InputAdornment position='end' onClick={handleOpenOptionsPage}>
                     <IconButton>
                         <SettingsIcon />
                     </IconButton>
