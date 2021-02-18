@@ -1,9 +1,10 @@
 import React, { ChangeEvent, useContext } from 'react'
-import { IconButton, InputAdornment, OutlinedInput } from '@material-ui/core'
+import { Grid, IconButton, OutlinedInput } from '@material-ui/core'
 import SettingsIcon from '@material-ui/icons/Settings'
 import { browser } from 'webextension-polyfill-ts'
 import AppContext from '../context/AppContext'
 import { isFolder } from '../utils/misc'
+import FiberNewIcon from '@material-ui/icons/FiberNew'
 
 export function SearchBar() {
     const context = useContext(AppContext)
@@ -25,18 +26,18 @@ export function SearchBar() {
     const handleOpenOptionsPage = () => browser.runtime.openOptionsPage()
 
     return (
-        <OutlinedInput
-            fullWidth
-            autoFocus
-            placeholder='start typing'
-            onChange={handleSearch}
-            endAdornment={
-                <InputAdornment position='end' onClick={handleOpenOptionsPage}>
-                    <IconButton>
-                        <SettingsIcon />
-                    </IconButton>
-                </InputAdornment>
-            }
-        />
+        <Grid container spacing={1}>
+            <Grid item xs={10}>
+                <OutlinedInput fullWidth autoFocus placeholder='start typing' onChange={handleSearch} />
+            </Grid>
+            <Grid item xs={2} container justify='center' alignItems='center'>
+                <IconButton>
+                    <FiberNewIcon />
+                </IconButton>
+                <IconButton onClick={handleOpenOptionsPage}>
+                    <SettingsIcon />
+                </IconButton>
+            </Grid>
+        </Grid>
     )
 }
