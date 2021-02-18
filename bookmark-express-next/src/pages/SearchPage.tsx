@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     },
 })
 
-export function Search({ isCacheStale }: Props) {
+export function SearchPage({ isCacheStale }: Props) {
     const classes = useStyles()
 
     // Fake defaults to appease TS. Actual defaults come from storage API and are inserted in the below useEffect
