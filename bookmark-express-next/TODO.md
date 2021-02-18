@@ -6,11 +6,8 @@ Then I could store the location of one in the config to use and fallback to regu
 
 https://developer.mozilla.org/manifest.json
 
-## Show recent bookmarks
-
 ## Search bar actions
 Bookmark current page
-Options
 
 ## Results actions
 Delete
