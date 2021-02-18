@@ -1,12 +1,55 @@
-import React from 'react'
-import { makeStyles } from '@material-ui/core'
+import React, { useEffect, useState } from 'react'
+import { FormControlLabel, FormGroup, Switch } from '@material-ui/core'
+import { getUserOptions, saveUserOptions } from '../utils/storage'
+import { defaultUserOptions, UserOptions } from '../utils/options'
 
-interface Props {}
+export function OptionsPage() {
+    const [isLoading, setIsLoading] = useState<boolean>(true)
+    const [userOptions, setUserOptions] = useState<UserOptions>(defaultUserOptions)
 
-const useStyles = makeStyles({})
+    useEffect(() => {
+        ;(async () => {
+            setUserOptions(await getUserOptions())
+            setIsLoading(false)
+        })()
+    }, [])
 
-export function OptionsPage(props: Props) {
-    const classes = useStyles()
+    async function handleToggleShowUrls() {
+        setUserOptions((prevState) => {
+            const newUserOptions = {
+                ...prevState,
+                showUrls: !prevState.showUrls,
+            }
 
-    return <h1>Options!</h1>
+            ;(async () => await saveUserOptions(newUserOptions))()
+
+            return newUserOptions
+        })
+    }
+
+    async function handleToggleShowBreadcrumbs() {
+        setUserOptions((prevState) => {
+            const newUserOptions = {
+                ...prevState,
+                showBreadcrumbs: !prevState.showBreadcrumbs,
+            }
+
+            ;(async () => await saveUserOptions(newUserOptions))()
+
+            return newUserOptions
+        })
+    }
+
+    return isLoading ? null : (
+        <FormGroup>
+            <FormControlLabel
+                control={<Switch checked={userOptions.showUrls} onChange={handleToggleShowUrls} />}
+                label='Show URLs in results'
+            />
+            <FormControlLabel
+                control={<Switch checked={userOptions.showBreadcrumbs} onChange={handleToggleShowBreadcrumbs} />}
+                label='Show breadcrumbs in results'
+            />
+        </FormGroup>
+    )
 }

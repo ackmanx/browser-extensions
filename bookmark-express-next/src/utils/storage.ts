@@ -23,3 +23,7 @@ export async function saveCache(cache: Cache) {
 export async function getUserOptions(): Promise<UserOptions> {
     return (await browser.storage.local.get({ userOptions: defaultUserOptions })).userOptions
 }
+
+export async function saveUserOptions(userOptions: UserOptions) {
+    await browser.storage.local.set({ userOptions })
+}
