@@ -1,6 +1,6 @@
 # New Features
 ## Use high-resolution favicons
-I could have a service worker (is that allowed in an extension) or async task to look through for a manifest or apple icon entry in the document
+I could have a service worker (requires manifest v3) or async task to look through for a manifest or apple icon entry in the document
 
 Then I could store the location of one in the config to use and fallback to regular if there's none
 

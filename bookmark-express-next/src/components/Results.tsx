@@ -9,7 +9,7 @@ import {
     ListItemText,
     makeStyles,
 } from '@material-ui/core'
-import DeleteIcon from '@material-ui/icons/Delete'
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import AppContext from '../context/AppContext'
 import { highlightText, isFolder } from '../utils/misc'
 import { Bookmarks } from 'webextension-polyfill-ts'
@@ -79,7 +79,7 @@ export function Results() {
                         </ListItemText>
                         <ListItemSecondaryAction>
                             <IconButton edge='end' tabIndex={-1}>
-                                <DeleteIcon />
+                                <MoreHorizIcon />
                             </IconButton>
                         </ListItemSecondaryAction>
                     </ListItem>
