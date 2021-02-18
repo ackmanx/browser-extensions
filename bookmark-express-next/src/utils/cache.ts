@@ -1,6 +1,6 @@
 import { Bookmarks, browser } from 'webextension-polyfill-ts'
 import md5 from 'md5'
-import { getBookmarksHash, getCache, saveBookmarksHash, saveCache } from './local-storage'
+import { getCache, getBookmarksHash, saveBookmarksHash, saveCache } from './storage'
 import { isFolder } from './misc'
 
 export interface Cache {
@@ -20,9 +20,9 @@ export async function isCacheStale() {
     const { children: bookmarks } = (await browser.bookmarks.getTree())[0]
 
     const freshHash = md5(JSON.stringify(bookmarks))
-    const savedHash = getBookmarksHash()
+    const savedHash = await getBookmarksHash()
 
-    saveBookmarksHash(freshHash)
+    await saveBookmarksHash(freshHash)
 
     return freshHash !== savedHash
 }
@@ -34,9 +34,9 @@ export async function isCacheStale() {
  */
 export async function buildCache() {
     const rootBookmarkTree = (await browser.bookmarks.getTree())[0]
-    const cache = processNode(rootBookmarkTree, [], { ...defaultCache }, getCache())
+    const cache = processNode(rootBookmarkTree, [], { ...defaultCache }, await getCache())
 
-    saveCache(cache)
+    await saveCache(cache)
 
     return cache
 }

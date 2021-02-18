@@ -15,6 +15,7 @@ Options
 ## Results actions
 Delete
 Edit
+Reset times accessed count
 
 ## Options
 View/hide pieces of UI

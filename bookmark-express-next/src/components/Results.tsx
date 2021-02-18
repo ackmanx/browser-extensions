@@ -13,7 +13,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import AppContext from '../context/AppContext'
 import { highlightText, isFolder } from '../utils/misc'
 import { Bookmarks } from 'webextension-polyfill-ts'
-import { saveCache } from '../utils/local-storage'
+import { saveCache } from '../utils/storage'
 
 const useStyles = makeStyles({
     title: {
@@ -38,9 +38,9 @@ export function Results() {
     const context = useContext(AppContext)
     const classes = useStyles()
 
-    function handleOpenBookmark(bookmark: Bookmarks.BookmarkTreeNode) {
+    async function handleOpenBookmark(bookmark: Bookmarks.BookmarkTreeNode) {
         context.cache.bookmarks[bookmark.id].timesAccessed++
-        saveCache(context.cache)
+        await saveCache(context.cache)
         window.open(bookmark.url)
     }
 

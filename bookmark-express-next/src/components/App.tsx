@@ -6,7 +6,7 @@ import AppContext, { AppContextInterface } from '../context/AppContext'
 import { Bookmarks } from 'webextension-polyfill-ts'
 import { buildCache, Cache, defaultCache } from '../utils/cache'
 import { ErrorBoundary } from './ErrorBoundary'
-import { getCache } from '../utils/local-storage'
+import { getCache } from '../utils/storage'
 import { defaultUserOptions, UserOptions } from '../utils/options'
 
 interface Props {
@@ -36,7 +36,7 @@ export function App({ isCacheStale }: Props) {
                 console.log(777, 'Changes to bookmarks detected... rebuilding cache')
                 setCache(await buildCache())
             } else {
-                setCache(getCache())
+                setCache(await getCache())
             }
 
             setIsLoading(false)
