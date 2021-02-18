@@ -1,7 +1,7 @@
 export interface UserOptions {
-    showUrl: boolean
+    showUrls: boolean
 }
 
 export const defaultUserOptions: UserOptions = {
-    showUrl: false
+    showUrls: false
 }

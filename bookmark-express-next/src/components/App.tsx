@@ -6,7 +6,7 @@ import AppContext, { AppContextInterface } from '../context/AppContext'
 import { Bookmarks } from 'webextension-polyfill-ts'
 import { buildCache, Cache, defaultCache } from '../utils/cache'
 import { ErrorBoundary } from './ErrorBoundary'
-import { getCache } from '../utils/storage'
+import { getCache, getUserOptions } from '../utils/storage'
 import { defaultUserOptions, UserOptions } from '../utils/options'
 
 interface Props {
@@ -39,6 +39,7 @@ export function App({ isCacheStale }: Props) {
                 setCache(await getCache())
             }
 
+            setUserOptions(await getUserOptions())
             setIsLoading(false)
         }
 

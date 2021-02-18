@@ -68,7 +68,7 @@ export function Results() {
                                     className={classes.title}
                                     dangerouslySetInnerHTML={{ __html: titleWithHighlights }}
                                 />
-                                {context.userOptions.showUrl && (
+                                {context.userOptions.showUrls && (
                                     <div
                                         className={classes.url}
                                         dangerouslySetInnerHTML={{ __html: urlWithHighlights }}
