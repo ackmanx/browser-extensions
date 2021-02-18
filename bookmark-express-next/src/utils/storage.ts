@@ -1,10 +1,10 @@
 import { browser } from 'webextension-polyfill-ts'
 import { Cache, defaultCache } from './cache'
-import { UserOptions } from './options'
+import { defaultUserOptions, UserOptions } from './options'
 
 export async function getBookmarksHash(): Promise<string> {
     console.log(777, await browser.storage.local.get())
-    return (await browser.storage.local.get()).bookmarksHash
+    return (await browser.storage.local.get({ bookmarksHash: '' })).bookmarksHash
 }
 
 export async function saveBookmarksHash(bookmarksHash: string) {
@@ -20,5 +20,5 @@ export async function saveCache(cache: Cache) {
 }
 
 export async function getUserOptions(): Promise<UserOptions> {
-    return (await browser.storage.local.get()).userOptions
+    return (await browser.storage.local.get({ userOptions: defaultUserOptions })).userOptions
 }

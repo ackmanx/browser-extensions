@@ -4,6 +4,6 @@ export interface UserOptions {
 }
 
 export const defaultUserOptions: UserOptions = {
-    showBreadcrumbs: false,
+    showBreadcrumbs: true,
     showUrls: false,
 }

@@ -22,10 +22,10 @@ const useStyles = makeStyles({
 export function App({ isCacheStale }: Props) {
     const classes = useStyles()
 
-    //todo: I feel like these context things should be defined in their own functions. Maybe a hook? Can hooks have state?
-    const [results, setResults] = useState<Bookmarks.BookmarkTreeNode[]>([])
+    // Fake defaults to appease TS. Actual defaults come from storage API and are inserted in the below useEffect
     const [cache, setCache] = useState<Cache>(defaultCache)
     const [userOptions, setUserOptions] = useState<UserOptions>(defaultUserOptions)
+    const [results, setResults] = useState<Bookmarks.BookmarkTreeNode[]>([])
     const [query, setQuery] = useState<string>('')
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
