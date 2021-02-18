@@ -9,7 +9,7 @@
     "background": {
         "page": "background.html"
     },
-    "options_page": "options.html",
+    "options_page": "index.html?page=options",
     "permissions": ["bookmarks", "chrome://favicon/", "storage"],
     "icons": {
         "16": "images/icon16.png",

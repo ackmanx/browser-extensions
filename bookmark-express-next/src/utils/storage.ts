@@ -2,8 +2,9 @@ import { browser } from 'webextension-polyfill-ts'
 import { Cache, defaultCache } from './cache'
 import { defaultUserOptions, UserOptions } from './options'
 
+browser.storage.local.get().then((contents) => console.log(777, 'Storage contents:', contents))
+
 export async function getBookmarksHash(): Promise<string> {
-    console.log(777, await browser.storage.local.get())
     return (await browser.storage.local.get({ bookmarksHash: '' })).bookmarksHash
 }
 
