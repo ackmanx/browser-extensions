@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { CircularProgress, Container, makeStyles } from '@material-ui/core'
-import { Results } from './Results'
-import { SearchBar } from './SearchBar'
+import { Results } from '../components/Results'
+import { SearchBar } from '../components/SearchBar'
 import AppContext, { AppContextInterface } from '../context/AppContext'
 import { Bookmarks } from 'webextension-polyfill-ts'
 import { buildCache, Cache, defaultCache } from '../utils/cache'
@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     },
 })
 
-export function App({ isCacheStale }: Props) {
+export function Search({ isCacheStale }: Props) {
     const classes = useStyles()
 
     // Fake defaults to appease TS. Actual defaults come from storage API and are inserted in the below useEffect
