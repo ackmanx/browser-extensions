@@ -23,6 +23,11 @@ export function SearchBar() {
         context.updateResults(bookmarks)
     }
 
+    const handleShowRecentlyAddedBookmarks = async () => {
+        const bookmarks = (await browser.bookmarks.getRecent(30)).filter((bookmark) => !isFolder(bookmark))
+        context.updateResults(bookmarks)
+    }
+
     const handleOpenOptionsPage = () => browser.runtime.openOptionsPage()
 
     return (
@@ -31,7 +36,7 @@ export function SearchBar() {
                 <OutlinedInput fullWidth autoFocus placeholder='start typing' onChange={handleSearch} />
             </Grid>
             <Grid item xs={2} container justify='center' alignItems='center'>
-                <IconButton>
+                <IconButton onClick={handleShowRecentlyAddedBookmarks}>
                     <FiberNewIcon />
                 </IconButton>
                 <IconButton onClick={handleOpenOptionsPage}>
