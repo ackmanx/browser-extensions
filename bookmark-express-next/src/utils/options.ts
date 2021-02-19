@@ -7,3 +7,5 @@ export const defaultUserOptions: UserOptions = {
     showBreadcrumbs: true,
     showUrls: false,
 }
+
+export type UserOptionKey = 'showBreadcrumbs' | 'showUrls'

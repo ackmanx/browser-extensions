@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { FormControlLabel, FormGroup, Switch } from '@material-ui/core'
 import { getUserOptions, saveUserOptions } from '../utils/storage'
-import { defaultUserOptions, UserOptions } from '../utils/options'
+import { defaultUserOptions, UserOptionKey, UserOptions } from '../utils/options'
 
 export function OptionsPage() {
     const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -14,24 +14,11 @@ export function OptionsPage() {
         })()
     }, [])
 
-    async function handleToggleShowUrls() {
+    async function handleToggle(option: UserOptionKey) {
         setUserOptions((prevState) => {
             const newUserOptions = {
                 ...prevState,
-                showUrls: !prevState.showUrls,
-            }
-
-            ;(async () => await saveUserOptions(newUserOptions))()
-
-            return newUserOptions
-        })
-    }
-
-    async function handleToggleShowBreadcrumbs() {
-        setUserOptions((prevState) => {
-            const newUserOptions = {
-                ...prevState,
-                showBreadcrumbs: !prevState.showBreadcrumbs,
+                [option]: !prevState[option],
             }
 
             ;(async () => await saveUserOptions(newUserOptions))()
@@ -43,11 +30,13 @@ export function OptionsPage() {
     return isLoading ? null : (
         <FormGroup>
             <FormControlLabel
-                control={<Switch checked={userOptions.showUrls} onChange={handleToggleShowUrls} />}
+                control={<Switch checked={userOptions.showUrls} onChange={() => handleToggle('showUrls')} />}
                 label='Show URLs in results'
             />
             <FormControlLabel
-                control={<Switch checked={userOptions.showBreadcrumbs} onChange={handleToggleShowBreadcrumbs} />}
+                control={
+                    <Switch checked={userOptions.showBreadcrumbs} onChange={() => handleToggle('showBreadcrumbs')} />
+                }
                 label='Show breadcrumbs in results'
             />
         </FormGroup>
