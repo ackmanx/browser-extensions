@@ -27,18 +27,23 @@ export function OptionsPage() {
         })
     }
 
-    return isLoading ? null : (
-        <FormGroup>
-            <FormControlLabel
-                control={<Switch checked={userOptions.showUrls} onChange={() => handleToggle('showUrls')} />}
-                label='Show URLs in results'
-            />
-            <FormControlLabel
-                control={
-                    <Switch checked={userOptions.showBreadcrumbs} onChange={() => handleToggle('showBreadcrumbs')} />
-                }
-                label='Show breadcrumbs in results'
-            />
-        </FormGroup>
+    return (
+        !isLoading && (
+            <FormGroup>
+                <FormControlLabel
+                    control={<Switch checked={userOptions.showUrls} onChange={() => handleToggle('showUrls')} />}
+                    label='Show URLs in results'
+                />
+                <FormControlLabel
+                    control={
+                        <Switch
+                            checked={userOptions.showBreadcrumbs}
+                            onChange={() => handleToggle('showBreadcrumbs')}
+                        />
+                    }
+                    label='Show breadcrumbs in results'
+                />
+            </FormGroup>
+        )
     )
 }
