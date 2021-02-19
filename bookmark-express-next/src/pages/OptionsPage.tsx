@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FormControlLabel, FormGroup, Switch } from '@material-ui/core'
+import { Container, FormControlLabel, FormGroup, Paper, Switch } from '@material-ui/core'
 import { getUserOptions, saveUserOptions } from '../utils/storage'
 import { defaultUserOptions, UserOptionKey, UserOptions } from '../utils/options'
 
@@ -27,23 +27,25 @@ export function OptionsPage() {
         })
     }
 
-    return (
-        !isLoading && (
-            <FormGroup>
-                <FormControlLabel
-                    control={<Switch checked={userOptions.showUrls} onChange={() => handleToggle('showUrls')} />}
-                    label='Show URLs in results'
-                />
-                <FormControlLabel
-                    control={
-                        <Switch
-                            checked={userOptions.showBreadcrumbs}
-                            onChange={() => handleToggle('showBreadcrumbs')}
-                        />
-                    }
-                    label='Show breadcrumbs in results'
-                />
-            </FormGroup>
-        )
+    return isLoading ? null : (
+        <Container>
+            <Paper elevation={3}>
+                <FormGroup>
+                    <FormControlLabel
+                        control={<Switch checked={userOptions.showUrls} onChange={() => handleToggle('showUrls')} />}
+                        label='Show URLs in results'
+                    />
+                    <FormControlLabel
+                        control={
+                            <Switch
+                                checked={userOptions.showBreadcrumbs}
+                                onChange={() => handleToggle('showBreadcrumbs')}
+                            />
+                        }
+                        label='Show breadcrumbs in results'
+                    />
+                </FormGroup>
+            </Paper>
+        </Container>
     )
 }
