@@ -24,7 +24,7 @@ export function SearchPage({ isCacheStale }: Props) {
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
     useEffect(() => {
-        async function run() {
+        ;(async () => {
             if (isCacheStale) {
                 console.log(777, 'Changes to bookmarks detected... rebuilding cache')
                 context.setCache(await buildCache())
@@ -34,9 +34,7 @@ export function SearchPage({ isCacheStale }: Props) {
 
             context.setUserOptions(await getUserOptions())
             setIsLoading(false)
-        }
-
-        run()
+        })()
     }, [isCacheStale])
 
     return (
