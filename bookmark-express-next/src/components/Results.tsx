@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { MouseEvent, useContext } from 'react'
 import {
     Avatar,
     IconButton,
@@ -8,6 +8,8 @@ import {
     ListItemSecondaryAction,
     ListItemText,
     makeStyles,
+    Menu,
+    MenuItem,
 } from '@material-ui/core'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import AppContext from '../context/AppContext'
@@ -39,10 +41,24 @@ export function Results() {
     const context = useContext(AppContext)
     const classes = useStyles()
 
+    //Material UI decides whether the menu is open or not based on if it has an anchor element
+    const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null)
+
     async function handleOpenBookmark(bookmark: Bookmarks.BookmarkTreeNode) {
         context.cache.bookmarks[bookmark.id].timesAccessed++
         await saveCache(context.cache)
         window.open(bookmark.url)
+    }
+
+    const handleOpenMenu = (event: MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget)
+    }
+
+    const handleCloseMenu = () => setAnchorEl(null)
+
+    const handleResetCount = async (bookmarkId: string) => {
+        console.log(777, 'resetting ', bookmarkId)
+        setAnchorEl(null)
     }
 
     const bookmarksSorted = context.results.sort(
@@ -78,9 +94,28 @@ export function Results() {
                             </>
                         </ListItemText>
                         <ListItemSecondaryAction>
-                            <IconButton edge='end' tabIndex={-1}>
+                            <IconButton edge='end' tabIndex={-1} onClick={handleOpenMenu}>
                                 <MoreHorizIcon />
                             </IconButton>
+                            <Menu
+                                anchorEl={anchorEl}
+                                keepMounted
+                                open={Boolean(anchorEl)}
+                                onClose={handleCloseMenu}
+                                elevation={1}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'left',
+                                }}
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                            >
+                                <MenuItem onClick={handleCloseMenu}>Edit</MenuItem>
+                                <MenuItem onClick={handleCloseMenu}>Delete</MenuItem>
+                                <MenuItem onClick={() => handleResetCount(result.id)}>Reset Count</MenuItem>
+                            </Menu>
                         </ListItemSecondaryAction>
                     </ListItem>
                 )

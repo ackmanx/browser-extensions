@@ -22,19 +22,19 @@ export function SearchBar() {
         const query = event.target.value
 
         if (query.length <= 1) {
-            context.updateResults([])
+            context.setResults([])
             return
         }
 
         const bookmarks = (await browser.bookmarks.search(query)).filter((bookmark) => !isFolder(bookmark))
 
         context.setQuery(query)
-        context.updateResults(bookmarks)
+        context.setResults(bookmarks)
     }
 
     const handleShowRecentlyAddedBookmarks = async () => {
         const bookmarks = (await browser.bookmarks.getRecent(30)).filter((bookmark) => !isFolder(bookmark))
-        context.updateResults(bookmarks)
+        context.setResults(bookmarks)
     }
 
     const handleOpenOptionsPage = () => browser.runtime.openOptionsPage()
