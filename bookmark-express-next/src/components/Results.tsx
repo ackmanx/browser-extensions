@@ -16,7 +16,6 @@ import AppContext from '../context/AppContext'
 import { highlightText, isFolder } from '../utils/misc'
 import { Bookmarks } from 'webextension-polyfill-ts'
 import { saveCache } from '../utils/storage'
-// import { resetTimesAccessedCount } from '../utils/cache'
 
 const useStyles = makeStyles({
     title: {
@@ -73,8 +72,6 @@ export function Results() {
         <List>
             {bookmarksSorted.map((result) => {
                 if (isFolder(result)) return
-
-                console.log(777, result.id, result.title)
 
                 const metaForResult = context.cache.bookmarks[result.id]
                 const titleWithHighlights = highlightText(result.title, context.query)

@@ -65,9 +65,3 @@ function processNode(
 
     return freshCache
 }
-
-// export async function resetTimesAccessedCount(cache: Cache, bookmarkId: string) {
-//     console.log(777, 'resetting', bookmarkId, cache.bookmarks[bookmarkId])
-//     cache.bookmarks[bookmarkId].timesAccessed = 0
-//     await saveCache(cache)
-// }
