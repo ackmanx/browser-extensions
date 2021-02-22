@@ -56,6 +56,8 @@ export function Results() {
 
     const handleCloseMenu = () => setAnchorEl(null)
 
+    const logResultId = (id: string) => console.log('result id:', id)
+
     const handleResetCount = async (bookmarkId: string) => {
         console.log(777, 'resetting ', bookmarkId)
         setAnchorEl(null)
@@ -75,7 +77,7 @@ export function Results() {
                 const urlWithHighlights = highlightText(result.url ?? '', context.query)
 
                 return (
-                    <ListItem button key={result.id} onClick={() => handleOpenBookmark(result)}>
+                    <ListItem button key={result.id} onClick={() => logResultId(result.id)}>
                         <ListItemAvatar>
                             <Avatar src={`chrome://favicon/${result.url}`} />
                         </ListItemAvatar>
@@ -114,7 +116,7 @@ export function Results() {
                             >
                                 <MenuItem onClick={handleCloseMenu}>Edit</MenuItem>
                                 <MenuItem onClick={handleCloseMenu}>Delete</MenuItem>
-                                <MenuItem onClick={() => handleResetCount(result.id)}>Reset Count</MenuItem>
+                                <MenuItem onClick={() => logResultId(result.id)}>Reset Count</MenuItem>
                             </Menu>
                         </ListItemSecondaryAction>
                     </ListItem>
