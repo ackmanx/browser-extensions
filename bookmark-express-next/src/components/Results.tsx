@@ -58,15 +58,12 @@ export function Results() {
 
     const handleResetCount = async (bookmarkId: string) => {
         console.log(777, 'resetting ', bookmarkId)
-        // await resetTimesAccessedCount(context.cache, bookmarkId)
         setAnchorEl(null)
     }
 
     const bookmarksSorted = context.results.sort(
         (a, b) => context.cache.bookmarks[b.id].timesAccessed - context.cache.bookmarks[a.id].timesAccessed
     )
-
-    console.log(777, '\n------------ render ---------------\n')
 
     return (
         <List>
@@ -82,9 +79,7 @@ export function Results() {
                         <ListItemAvatar>
                             <Avatar src={`chrome://favicon/${result.url}`} />
                         </ListItemAvatar>
-                        <ListItemText
-                            secondary={context.userOptions.showBreadcrumbs && metaForResult.breadcrumbs}
-                        >
+                        <ListItemText secondary={context.userOptions.showBreadcrumbs && metaForResult.breadcrumbs}>
                             <>
                                 <div
                                     className={classes.title}
