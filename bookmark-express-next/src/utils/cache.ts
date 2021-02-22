@@ -10,7 +10,6 @@ export interface Cache {
 interface BookmarkCacheEntry {
     breadcrumbs: string
     timesAccessed: number
-    title: string
 }
 
 export const defaultCache: Cache = {
@@ -59,7 +58,6 @@ function processNode(
         freshCache.bookmarks[bookmarkNode.id] = {
             breadcrumbs: folderNameStack.slice(0, -1).join(' / '),
             timesAccessed: staleCache.bookmarks[bookmarkNode.id]?.timesAccessed ?? 0,
-            title: bookmarkNode.title,
         }
     }
 
@@ -68,8 +66,8 @@ function processNode(
     return freshCache
 }
 
-export async function resetTimesAccessedCount(cache: Cache, bookmarkId: string) {
-    console.log(777, 'resetting', bookmarkId, cache.bookmarks[bookmarkId])
-    cache.bookmarks[bookmarkId].timesAccessed = 0
-    await saveCache(cache)
-}
+// export async function resetTimesAccessedCount(cache: Cache, bookmarkId: string) {
+//     console.log(777, 'resetting', bookmarkId, cache.bookmarks[bookmarkId])
+//     cache.bookmarks[bookmarkId].timesAccessed = 0
+//     await saveCache(cache)
+// }

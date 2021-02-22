@@ -16,7 +16,7 @@ import AppContext from '../context/AppContext'
 import { highlightText, isFolder } from '../utils/misc'
 import { Bookmarks } from 'webextension-polyfill-ts'
 import { saveCache } from '../utils/storage'
-import { resetTimesAccessedCount } from '../utils/cache'
+// import { resetTimesAccessedCount } from '../utils/cache'
 
 const useStyles = makeStyles({
     title: {
@@ -41,6 +41,8 @@ const useStyles = makeStyles({
 export function Results() {
     const context = useContext(AppContext)
     const classes = useStyles()
+
+    //Material UI decides whether the menu is open or not based on if it has an anchor element
     const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null)
 
     async function handleOpenBookmark(bookmark: Bookmarks.BookmarkTreeNode) {
@@ -49,13 +51,11 @@ export function Results() {
         window.open(bookmark.url)
     }
 
-    const handleClick = (event: MouseEvent<HTMLElement>) => {
+    const handleOpenMenu = (event: MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget)
     }
 
-    const handleClose = () => {
-        setAnchorEl(null)
-    }
+    const handleCloseMenu = () => setAnchorEl(null)
 
     const handleResetCount = async (bookmarkId: string) => {
         console.log(777, 'resetting ', bookmarkId)
@@ -86,7 +86,6 @@ export function Results() {
                             <Avatar src={`chrome://favicon/${result.url}`} />
                         </ListItemAvatar>
                         <ListItemText
-                            title={result.id}
                             secondary={context.userOptions.showBreadcrumbs && metaForResult.breadcrumbs}
                         >
                             <>
@@ -103,14 +102,14 @@ export function Results() {
                             </>
                         </ListItemText>
                         <ListItemSecondaryAction>
-                            <IconButton edge='end' tabIndex={-1} onClick={handleClick}>
+                            <IconButton edge='end' tabIndex={-1} onClick={handleOpenMenu}>
                                 <MoreHorizIcon />
                             </IconButton>
                             <Menu
                                 anchorEl={anchorEl}
                                 keepMounted
                                 open={Boolean(anchorEl)}
-                                onClose={handleClose}
+                                onClose={handleCloseMenu}
                                 elevation={1}
                                 anchorOrigin={{
                                     vertical: 'top',
@@ -121,8 +120,8 @@ export function Results() {
                                     horizontal: 'right',
                                 }}
                             >
-                                <MenuItem onClick={handleClose}>Edit</MenuItem>
-                                <MenuItem onClick={handleClose}>Delete</MenuItem>
+                                <MenuItem onClick={handleCloseMenu}>Edit</MenuItem>
+                                <MenuItem onClick={handleCloseMenu}>Delete</MenuItem>
                                 <MenuItem onClick={() => handleResetCount(result.id)}>Reset Count</MenuItem>
                             </Menu>
                         </ListItemSecondaryAction>
