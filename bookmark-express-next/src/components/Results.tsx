@@ -16,6 +16,7 @@ import AppContext from '../context/AppContext'
 import { highlightText, isFolder } from '../utils/misc'
 import { Bookmarks } from 'webextension-polyfill-ts'
 import { saveCache } from '../utils/storage'
+import { resetTimesAccessedCount } from '../utils/cache'
 
 const useStyles = makeStyles({
     title: {
@@ -56,16 +57,24 @@ export function Results() {
         setAnchorEl(null)
     }
 
+    const handleResetCount = async (bookmarkId: string) => {
+        console.log(777, 'resetting ', bookmarkId)
+        // await resetTimesAccessedCount(context.cache, bookmarkId)
+        setAnchorEl(null)
+    }
+
     const bookmarksSorted = context.results.sort(
         (a, b) => context.cache.bookmarks[b.id].timesAccessed - context.cache.bookmarks[a.id].timesAccessed
     )
 
-    console.log(777, 'anchor el', anchorEl)
+    console.log(777, '\n------------ render ---------------\n')
 
     return (
         <List>
             {bookmarksSorted.map((result) => {
                 if (isFolder(result)) return
+
+                console.log(777, result.id, result.title)
 
                 const metaForResult = context.cache.bookmarks[result.id]
                 const titleWithHighlights = highlightText(result.title, context.query)
@@ -76,7 +85,10 @@ export function Results() {
                         <ListItemAvatar>
                             <Avatar src={`chrome://favicon/${result.url}`} />
                         </ListItemAvatar>
-                        <ListItemText secondary={context.userOptions.showBreadcrumbs && metaForResult.breadcrumbs}>
+                        <ListItemText
+                            title={result.id}
+                            secondary={context.userOptions.showBreadcrumbs && metaForResult.breadcrumbs}
+                        >
                             <>
                                 <div
                                     className={classes.title}
@@ -111,7 +123,7 @@ export function Results() {
                             >
                                 <MenuItem onClick={handleClose}>Edit</MenuItem>
                                 <MenuItem onClick={handleClose}>Delete</MenuItem>
-                                <MenuItem onClick={handleClose}>Reset Count</MenuItem>
+                                <MenuItem onClick={() => handleResetCount(result.id)}>Reset Count</MenuItem>
                             </Menu>
                         </ListItemSecondaryAction>
                     </ListItem>
