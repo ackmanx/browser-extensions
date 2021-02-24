@@ -41,7 +41,6 @@ export function Results() {
     const context = useContext(AppContext)
     const classes = useStyles()
 
-    //Material UI decides whether the menu is open or not based on if it has an anchor element
     const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null)
 
     async function handleOpenBookmark(bookmark: Bookmarks.BookmarkTreeNode) {
@@ -67,17 +66,17 @@ export function Results() {
 
     return (
         <List>
-            {bookmarksSorted.map((result) => {
-                if (isFolder(result)) return
+            {bookmarksSorted.map((bookmark) => {
+                if (isFolder(bookmark)) return
 
-                const metaForResult = context.cache.bookmarks[result.id]
-                const titleWithHighlights = highlightText(result.title, context.query)
-                const urlWithHighlights = highlightText(result.url ?? '', context.query)
+                const metaForResult = context.cache.bookmarks[bookmark.id]
+                const titleWithHighlights = highlightText(bookmark.title, context.query)
+                const urlWithHighlights = highlightText(bookmark.url ?? '', context.query)
 
                 return (
-                    <ListItem button key={result.id} onClick={() => handleOpenBookmark(result)}>
+                    <ListItem button key={bookmark.id} onClick={() => handleOpenBookmark(bookmark)}>
                         <ListItemAvatar>
-                            <Avatar src={`chrome://favicon/${result.url}`} />
+                            <Avatar src={`chrome://favicon/${bookmark.url}`} />
                         </ListItemAvatar>
                         <ListItemText secondary={context.userOptions.showBreadcrumbs && metaForResult.breadcrumbs}>
                             <>
@@ -112,9 +111,7 @@ export function Results() {
                                     horizontal: 'right',
                                 }}
                             >
-                                <MenuItem onClick={handleCloseMenu}>Edit</MenuItem>
-                                <MenuItem onClick={handleCloseMenu}>Delete</MenuItem>
-                                <MenuItem onClick={() => handleResetCount(result.id)}>Reset Count</MenuItem>
+                                <MenuItem onClick={() => handleResetCount(bookmark.id)}>Reset Count</MenuItem>
                             </Menu>
                         </ListItemSecondaryAction>
                     </ListItem>
