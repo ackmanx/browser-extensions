@@ -42,6 +42,7 @@ export function Results() {
     const classes = useStyles()
 
     const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null)
+    const [currentBookmarkId, setCurrentBookmarkId] = React.useState<string | null>(null)
 
     async function handleOpenBookmark(bookmark: Bookmarks.BookmarkTreeNode) {
         context.cache.bookmarks[bookmark.id].timesAccessed++
@@ -49,15 +50,19 @@ export function Results() {
         window.open(bookmark.url)
     }
 
-    const handleOpenMenu = (event: MouseEvent<HTMLElement>) => {
+    const handleOpenMenu = (event: MouseEvent<HTMLElement>, bookmarkId: string) => {
+        setCurrentBookmarkId(bookmarkId)
         setAnchorEl(event.currentTarget)
     }
 
-    const handleCloseMenu = () => setAnchorEl(null)
+    const handleCloseMenu = () => {
+        setCurrentBookmarkId(null)
+        setAnchorEl(null)
+    }
 
     const handleResetCount = async (bookmarkId: string) => {
         console.log(777, 'resetting ', bookmarkId)
-        setAnchorEl(null)
+        handleCloseMenu()
     }
 
     const bookmarksSorted = context.results.sort(
@@ -93,13 +98,17 @@ export function Results() {
                             </>
                         </ListItemText>
                         <ListItemSecondaryAction>
-                            <IconButton edge='end' tabIndex={-1} onClick={handleOpenMenu}>
+                            <IconButton
+                                edge='end'
+                                tabIndex={-1}
+                                onClick={(event) => handleOpenMenu(event, bookmark.id)}
+                            >
                                 <MoreHorizIcon />
                             </IconButton>
                             <Menu
                                 anchorEl={anchorEl}
                                 keepMounted
-                                open={Boolean(anchorEl)}
+                                open={currentBookmarkId === bookmark.id}
                                 onClose={handleCloseMenu}
                                 elevation={1}
                                 anchorOrigin={{
