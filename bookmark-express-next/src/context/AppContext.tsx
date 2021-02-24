@@ -5,7 +5,7 @@ import { UserOptions } from '../utils/options'
 
 export interface AppContextInterface {
     cache: Cache
-    setCache: (cache: Cache) => void
+    setCache: (cache: Cache | ((prevCache: Cache) => Cache)) => void
     results: Bookmarks.BookmarkTreeNode[]
     setResults: (newResults: Bookmarks.BookmarkTreeNode[]) => void
     query: string

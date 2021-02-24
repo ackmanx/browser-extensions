@@ -2,6 +2,8 @@ import React, { MouseEvent, useContext } from 'react'
 import { IconButton, Menu, MenuItem } from '@material-ui/core'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import AppContext from '../context/AppContext'
+import { saveCache } from '../utils/storage'
+import { Cache } from '../utils/cache'
 
 interface Props {
     bookmarkId: string
@@ -18,7 +20,15 @@ export function ResultActions({ bookmarkId }: Props) {
     const handleCloseMenu = () => setAnchorEl(null)
 
     const handleResetCount = async (bookmarkId: string) => {
-        console.log(777, 'resetting ', bookmarkId)
+        context.setCache((prevCache: Cache) => {
+            const newCache: Cache = JSON.parse(JSON.stringify(prevCache))
+            newCache.bookmarks[bookmarkId].timesAccessed = 0
+
+            saveCache(newCache)
+
+            return newCache
+        })
+
         handleCloseMenu()
     }
 
@@ -32,7 +42,6 @@ export function ResultActions({ bookmarkId }: Props) {
                 keepMounted
                 open={Boolean(anchorEl)}
                 onClose={handleCloseMenu}
-                elevation={1}
                 anchorOrigin={{
                     vertical: 'top',
                     horizontal: 'left',
