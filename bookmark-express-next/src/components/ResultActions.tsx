@@ -4,6 +4,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import AppContext from '../context/AppContext'
 import { saveCache } from '../utils/storage'
 import { Cache } from '../utils/cache'
+import { browser } from 'webextension-polyfill-ts'
 
 interface Props {
     bookmarkId: string
@@ -18,6 +19,16 @@ export function ResultActions({ bookmarkId }: Props) {
 
     const handleOpenMenu = (event: MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget)
     const handleCloseMenu = () => setAnchorEl(null)
+
+    const handleDelete = async (bookmarkId: string) => {
+        await browser.bookmarks.remove(bookmarkId)
+
+        // React won't re-render from this because it's a no-no, so set cache afterwards with a new reference
+        context.cache.bookmarks[bookmarkId].justDeleted = true
+        context.setCache({ ...context.cache })
+
+        handleCloseMenu()
+    }
 
     const handleResetCount = async (bookmarkId: string) => {
         context.setCache((prevCache: Cache) => {
@@ -51,6 +62,7 @@ export function ResultActions({ bookmarkId }: Props) {
                     horizontal: 'right',
                 }}
             >
+                <MenuItem onClick={() => handleDelete(bookmarkId)}>Delete</MenuItem>
                 <MenuItem onClick={() => handleResetCount(bookmarkId)}>Reset Count</MenuItem>
             </Menu>
         </>

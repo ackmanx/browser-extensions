@@ -32,6 +32,9 @@ const useStyles = makeStyles({
             color: 'white',
         },
     },
+    justDeleted: {
+        opacity: 0.2,
+    },
 })
 
 export function Results() {
@@ -39,8 +42,10 @@ export function Results() {
     const classes = useStyles()
 
     async function handleOpenBookmark(bookmark: Bookmarks.BookmarkTreeNode) {
+        // Updating directly being the extension closes after this anyway
         context.cache.bookmarks[bookmark.id].timesAccessed++
         await saveCache(context.cache)
+
         window.open(bookmark.url)
     }
 
@@ -56,7 +61,12 @@ export function Results() {
                 const urlWithHighlights = highlightText(bookmark.url ?? '', context.query)
 
                 return (
-                    <ListItem button key={bookmark.id} onClick={() => handleOpenBookmark(bookmark)}>
+                    <ListItem
+                        className={metaForResult.justDeleted ? classes.justDeleted : ''}
+                        button
+                        key={bookmark.id}
+                        onClick={() => handleOpenBookmark(bookmark)}
+                    >
                         <ListItemAvatar>
                             <Avatar src={`chrome://favicon/${bookmark.url}`} />
                         </ListItemAvatar>

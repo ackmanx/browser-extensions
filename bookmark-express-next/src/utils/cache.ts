@@ -10,6 +10,7 @@ export interface Cache {
 interface BookmarkCacheEntry {
     breadcrumbs: string
     timesAccessed: number
+    justDeleted: boolean
 }
 
 export const defaultCache: Cache = {
@@ -58,6 +59,7 @@ function processNode(
         freshCache.bookmarks[bookmarkNode.id] = {
             breadcrumbs: folderNameStack.slice(0, -1).join(' / '),
             timesAccessed: staleCache.bookmarks[bookmarkNode.id]?.timesAccessed ?? 0,
+            justDeleted: false,
         }
     }
 
