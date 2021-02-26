@@ -41,6 +41,8 @@ export function Results() {
     const context = useContext(AppContext)
     const classes = useStyles()
 
+    if (!context.results.length) return null
+
     async function handleOpenBookmark(bookmark: Bookmarks.BookmarkTreeNode) {
         // Updating directly being the extension closes after this anyway
         context.cache.bookmarks[bookmark.id].timesAccessed++
