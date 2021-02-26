@@ -49,13 +49,17 @@ export function Results() {
         window.open(bookmark.url)
     }
 
-    const bookmarksSorted = context.results
-        .filter((bookmark: Bookmarks.BookmarkTreeNode) => !isFolder(bookmark))
-        .sort((a, b) => context.cache.bookmarks[b.id].timesAccessed - context.cache.bookmarks[a.id].timesAccessed)
+    let bookmarks = context.results.filter((bookmark: Bookmarks.BookmarkTreeNode) => !isFolder(bookmark))
+
+    if (context.viewMode === 'search') {
+        bookmarks = bookmarks.sort(
+            (a, b) => context.cache.bookmarks[b.id].timesAccessed - context.cache.bookmarks[a.id].timesAccessed
+        )
+    }
 
     return (
         <List>
-            {bookmarksSorted.map((bookmark) => {
+            {bookmarks.map((bookmark) => {
                 const metaForResult = context.cache.bookmarks[bookmark.id]
                 const titleWithHighlights = highlightText(bookmark.title, context.query)
                 const urlWithHighlights = highlightText(bookmark.url ?? '', context.query)

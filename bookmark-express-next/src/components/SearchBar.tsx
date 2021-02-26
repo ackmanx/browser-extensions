@@ -4,7 +4,7 @@ import SettingsIcon from '@material-ui/icons/Settings'
 import { browser } from 'webextension-polyfill-ts'
 import AppContext from '../context/AppContext'
 import { isFolder } from '../utils/misc'
-import FiberNewIcon from '@material-ui/icons/FiberNew'
+import RecentIcon from '@material-ui/icons/History'
 
 const useStyles = makeStyles({
     search: {
@@ -19,6 +19,8 @@ export function SearchBar() {
     const context = useContext(AppContext)
 
     const handleSearch = async (event: ChangeEvent<HTMLInputElement>) => {
+        context.setViewMode('search')
+
         const query = event.target.value
 
         if (query.length <= 1) {
@@ -33,6 +35,8 @@ export function SearchBar() {
     }
 
     const handleShowRecentlyAddedBookmarks = async () => {
+        context.setViewMode('recent')
+
         const bookmarks = (await browser.bookmarks.getRecent(30)).filter((bookmark) => !isFolder(bookmark))
         context.setResults(bookmarks)
     }
@@ -52,7 +56,7 @@ export function SearchBar() {
             </Grid>
             <Grid item xs={2} container justify='center' alignItems='center'>
                 <IconButton onClick={handleShowRecentlyAddedBookmarks}>
-                    <FiberNewIcon />
+                    <RecentIcon />
                 </IconButton>
                 <IconButton onClick={handleOpenOptionsPage}>
                     <SettingsIcon />
