@@ -3,7 +3,7 @@ import { Bookmarks } from 'webextension-polyfill-ts'
 import { Cache } from '../utils/cache'
 import { UserOptions } from '../utils/options'
 
-export type ViewMode = 'search' | 'recent' | ''
+export type ViewMode = 'search' | 'recent' | 'add' | ''
 
 export interface AppContextInterface {
     cache: Cache

@@ -37,6 +37,20 @@ export function SearchPage({ isCacheStale }: Props) {
         })()
     }, [isCacheStale])
 
+    let view
+
+    switch (context.viewMode) {
+        case 'add':
+            view = <h3>Add current page</h3>
+            break
+        case 'recent':
+        case 'search':
+            view = <Results />
+            break
+        default:
+            view = null
+    }
+
     return (
         <AppContext.Provider value={context}>
             {isLoading && (
@@ -47,7 +61,7 @@ export function SearchPage({ isCacheStale }: Props) {
             {!isLoading && (
                 <Container disableGutters>
                     <SearchBar />
-                    <Results />
+                    {view}
                 </Container>
             )}
         </AppContext.Provider>
