@@ -18,6 +18,6 @@ isCacheStale().then((result) => {
                 <App isCacheStale={result} page={page} />
             </ErrorBoundary>
         </React.StrictMode>,
-        document.getElementById('root')
+        document.getElementById('react')
     )
 })
