@@ -6,6 +6,7 @@ import AppContext from '../context/AppContext'
 import { buildCache } from '../utils/cache'
 import { getCache, getUserOptions } from '../utils/storage'
 import { useAppContext } from '../utils/hooks'
+import {EditBookmark} from "../components/EditBookmark";
 
 interface Props {
     isCacheStale: boolean
@@ -41,7 +42,7 @@ export function SearchPage({ isCacheStale }: Props) {
 
     switch (context.viewMode) {
         case 'add':
-            view = <h3>Add current page</h3>
+            view = <EditBookmark />
             break
         case 'recent':
         case 'search':
