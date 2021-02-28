@@ -1,9 +1,9 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
-import { Avatar, Button, InputAdornment, makeStyles, TextField } from '@material-ui/core'
+import { Avatar, Button, Grid, InputAdornment, makeStyles, Paper, TextField } from '@material-ui/core'
 import { Bookmarks, browser, Tabs } from 'webextension-polyfill-ts'
 
 const useStyles = makeStyles((theme) => ({
-    search: {
+    input: {
         '&.Mui-focused fieldset': {
             borderColor: '#3576CB !important',
         },
@@ -12,6 +12,12 @@ const useStyles = makeStyles((theme) => ({
         '& .MuiTextField-root': {
             margin: theme.spacing(1),
         },
+    },
+    marginBottom: {
+        marginBottom: theme.spacing(1),
+    },
+    paper: {
+        padding: theme.spacing(1),
     },
 }))
 
@@ -49,38 +55,44 @@ export function EditBookmark() {
     }
 
     return (
-        <>
-            Bookmark Current Page
-            <form noValidate className={classes.form} autoComplete='off'>
-                <TextField
-                    fullWidth
-                    className={classes.search}
-                    variant='outlined'
-                    label='Title'
-                    value={bookmark?.title}
-                    InputLabelProps={{ shrink: true }}
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position='start'>
-                                <Avatar src={activeTab?.favIconUrl} />
-                            </InputAdornment>
-                        ),
-                    }}
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => handleTextChange(event, 'title')}
-                />
-                <TextField
-                    fullWidth
-                    className={classes.search}
-                    variant='outlined'
-                    label='URL'
-                    value={bookmark?.url}
-                    InputLabelProps={{ shrink: true }}
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => handleTextChange(event, 'url')}
-                />
-                <Button variant='contained' color='primary' onClick={handleAddBookmark}>
-                    Add
-                </Button>
-            </form>
-        </>
+        <Paper className={classes.paper} elevation={3}>
+            <Grid container>
+                <Grid item xs={12}>
+                    <TextField
+                        fullWidth
+                        className={`${classes.input} ${classes.marginBottom}`}
+                        variant='outlined'
+                        value={bookmark?.title}
+                        InputLabelProps={{ shrink: true }}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position='start'>
+                                    <Avatar src={activeTab?.favIconUrl} />
+                                </InputAdornment>
+                            ),
+                        }}
+                        onChange={(event: ChangeEvent<HTMLInputElement>) => handleTextChange(event, 'title')}
+                    />
+                    <TextField
+                        fullWidth
+                        multiline
+                        className={`${classes.input} ${classes.marginBottom}`}
+                        rows={4}
+                        variant='outlined'
+                        value={bookmark?.url}
+                        InputLabelProps={{ shrink: true }}
+                        onChange={(event: ChangeEvent<HTMLInputElement>) => handleTextChange(event, 'url')}
+                    />
+                    <Button
+                        className={classes.marginBottom}
+                        variant='contained'
+                        color='primary'
+                        onClick={handleAddBookmark}
+                    >
+                        Add
+                    </Button>
+                </Grid>
+            </Grid>
+        </Paper>
     )
 }
