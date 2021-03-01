@@ -5,7 +5,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import TreeItem from '@material-ui/lab/TreeItem'
 import { Bookmarks, browser, Tabs } from 'webextension-polyfill-ts'
-import { isFolder } from '../utils/misc'
+import { getFolders, isFolder } from '../utils/misc'
 
 const useStyles = makeStyles((theme) => ({
     input: {
@@ -43,10 +43,7 @@ export function EditBookmark() {
                 url: tab.url,
             })
 
-            const bookmarks = (await browser.bookmarks.getTree())[0]
-            bookmarks.title = 'All Folders'
-
-            setAllFolders(bookmarks)
+            setAllFolders(await getFolders())
         })()
     }, [])
 

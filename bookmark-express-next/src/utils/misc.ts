@@ -1,7 +1,7 @@
-import { Bookmarks } from 'webextension-polyfill-ts'
+import { Bookmarks, browser } from 'webextension-polyfill-ts'
 
 export function isFolder(bookmark: Bookmarks.BookmarkTreeNode) {
-    //Folders don't have URLs, and bookmarks do
+    //Folders can't have URLs
     return !bookmark.url
 }
 
@@ -30,4 +30,21 @@ export function highlightText(sourceText: string, searchQuery: string) {
     })
 
     return highlightedText
+}
+
+export async function getFolders() {
+    const bookmarks = (await browser.bookmarks.getTree())[0]
+    bookmarks.title = 'All Folders'
+
+    return removeBookmarks(bookmarks, {} as Bookmarks.BookmarkTreeNode)
+}
+
+function removeBookmarks(node: Bookmarks.BookmarkTreeNode, parentNode: Bookmarks.BookmarkTreeNode) {
+    if (node.children) {
+        node.children.map((child) => removeBookmarks(child, node))
+    } else {
+        parentNode.children = parentNode.children?.filter((leaf) => !leaf.url)
+    }
+
+    return node
 }
