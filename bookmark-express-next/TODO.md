@@ -13,7 +13,6 @@ Bookmark current page
         * Use TreeView component
     * Recently used folders
         * Might be able to use dateGroupModified to get recently used folders
-        * Does the recent bookmarks function return folders?
     * Favorites
         * Use Chip component
         * Need to save these settings
