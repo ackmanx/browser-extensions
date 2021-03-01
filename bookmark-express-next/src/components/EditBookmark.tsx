@@ -90,7 +90,7 @@ export function EditBookmark() {
                         color='primary'
                         onClick={handleAddBookmark}
                     >
-                        Add
+                        Add Bookmark
                     </Button>
                 </Grid>
             </Grid>
