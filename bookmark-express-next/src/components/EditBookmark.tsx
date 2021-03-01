@@ -1,11 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { Avatar, Button, Grid, InputAdornment, makeStyles, Paper, TextField } from '@material-ui/core'
-import TreeView from '@material-ui/lab/TreeView'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import ChevronRightIcon from '@material-ui/icons/ChevronRight'
-import TreeItem from '@material-ui/lab/TreeItem'
 import { Bookmarks, browser, Tabs } from 'webextension-polyfill-ts'
-import { getFolders, isFolder } from '../utils/misc'
+import { FolderSelection } from './FolderSelection'
 
 const useStyles = makeStyles((theme) => ({
     input: {
@@ -30,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
 export function EditBookmark() {
     const classes = useStyles()
     const [activeTab, setActiveTab] = useState<Tabs.Tab>()
-    const [allFolders, setAllFolders] = useState<Bookmarks.BookmarkTreeNode>()
     const [bookmark, setBookmark] = useState<Bookmarks.CreateDetails>()
 
     useEffect(() => {
@@ -42,8 +37,6 @@ export function EditBookmark() {
                 title: tab.title,
                 url: tab.url,
             })
-
-            setAllFolders(await getFolders())
         })()
     }, [])
 
@@ -58,16 +51,6 @@ export function EditBookmark() {
         if (!bookmark) return
         await browser.bookmarks.create(bookmark)
         window.close()
-    }
-
-    const renderFolderTree = (node: Bookmarks.BookmarkTreeNode | undefined) => {
-        if (!node || !isFolder(node)) return null
-
-        return (
-            <TreeItem key={node.id} nodeId={node.id} label={node.title}>
-                {Array.isArray(node.children) ? node.children.map((node) => renderFolderTree(node)) : null}
-            </TreeItem>
-        )
     }
 
     return (
@@ -99,14 +82,9 @@ export function EditBookmark() {
                         InputLabelProps={{ shrink: true }}
                         onChange={(event: ChangeEvent<HTMLInputElement>) => handleTextChange(event, 'url')}
                     />
-                    <TreeView
-                        className={classes.marginBottom}
-                        defaultCollapseIcon={<ExpandMoreIcon />}
-                        defaultExpandIcon={<ChevronRightIcon />}
-                        defaultExpanded={['0']}
-                    >
-                        {renderFolderTree(allFolders)}
-                    </TreeView>
+                    <div className={classes.marginBottom}>
+                        <FolderSelection />
+                    </div>
                     <Button
                         className={classes.marginBottom}
                         variant='contained'
