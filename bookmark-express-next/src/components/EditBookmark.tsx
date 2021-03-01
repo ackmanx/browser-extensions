@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 export function EditBookmark() {
     const classes = useStyles()
     const [activeTab, setActiveTab] = useState<Tabs.Tab>()
-    const [allBookmarks, setAllBookmarks] = useState<Bookmarks.BookmarkTreeNode>()
+    const [allFolders, setAllFolders] = useState<Bookmarks.BookmarkTreeNode>()
     const [bookmark, setBookmark] = useState<Bookmarks.CreateDetails>()
 
     useEffect(() => {
@@ -46,7 +46,7 @@ export function EditBookmark() {
             const bookmarks = (await browser.bookmarks.getTree())[0]
             bookmarks.title = 'All Folders'
 
-            setAllBookmarks(bookmarks)
+            setAllFolders(bookmarks)
         })()
     }, [])
 
@@ -108,7 +108,7 @@ export function EditBookmark() {
                         defaultExpandIcon={<ChevronRightIcon />}
                         defaultExpanded={['0']}
                     >
-                        {renderFolderTree(allBookmarks)}
+                        {renderFolderTree(allFolders)}
                     </TreeView>
                     <Button
                         className={classes.marginBottom}
