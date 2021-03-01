@@ -32,7 +32,6 @@ export function EditBookmark() {
             const tab = (await browser.tabs.query({ active: true }))[0]
 
             setActiveTab(tab)
-
             setBookmark({
                 title: tab.title,
                 url: tab.url,
@@ -49,9 +48,7 @@ export function EditBookmark() {
 
     const handleAddBookmark = async () => {
         if (!bookmark) return
-
         await browser.bookmarks.create(bookmark)
-
         window.close()
     }
 
