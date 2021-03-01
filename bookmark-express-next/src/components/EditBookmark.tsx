@@ -43,7 +43,10 @@ export function EditBookmark() {
                 url: tab.url,
             })
 
-            setAllBookmarks((await browser.bookmarks.getTree())[0])
+            const bookmarks = (await browser.bookmarks.getTree())[0]
+            bookmarks.title = 'All Folders'
+
+            setAllBookmarks(bookmarks)
         })()
     }, [])
 
@@ -103,11 +106,10 @@ export function EditBookmark() {
                         className={classes.marginBottom}
                         defaultCollapseIcon={<ExpandMoreIcon />}
                         defaultExpandIcon={<ChevronRightIcon />}
+                        defaultExpanded={['0']}
                     >
                         {renderFolderTree(allBookmarks)}
                     </TreeView>
-                </Grid>
-                <Grid item xs={12}>
                     <Button
                         className={classes.marginBottom}
                         variant='contained'
