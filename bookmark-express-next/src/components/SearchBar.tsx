@@ -4,7 +4,7 @@ import SettingsIcon from '@material-ui/icons/Settings'
 import { browser } from 'webextension-polyfill-ts'
 import AppContext from '../context/AppContext'
 import { isFolder } from '../utils/misc'
-import RecentIcon from '@material-ui/icons/History'
+import { Add, History as RecentIcon } from '@material-ui/icons'
 
 const useStyles = makeStyles({
     search: {
@@ -41,11 +41,15 @@ export function SearchBar() {
         context.setResults(bookmarks)
     }
 
+    const handleBookmarkCurrentPage = async () => {
+        context.setViewMode('add')
+    }
+
     const handleOpenOptionsPage = () => browser.runtime.openOptionsPage()
 
     return (
         <Grid container spacing={1}>
-            <Grid item xs={10}>
+            <Grid item xs={9}>
                 <OutlinedInput
                     fullWidth
                     autoFocus
@@ -54,11 +58,14 @@ export function SearchBar() {
                     className={classes.search}
                 />
             </Grid>
-            <Grid item xs={2} container justify='center' alignItems='center'>
-                <IconButton onClick={handleShowRecentlyAddedBookmarks}>
+            <Grid item xs={3} container justify='center' alignItems='center'>
+                <IconButton title='Bookmark Current Page' onClick={handleBookmarkCurrentPage}>
+                    <Add />
+                </IconButton>
+                <IconButton title='Show Recently Added Bookmarks' onClick={handleShowRecentlyAddedBookmarks}>
                     <RecentIcon />
                 </IconButton>
-                <IconButton onClick={handleOpenOptionsPage}>
+                <IconButton title='Open Settings' onClick={handleOpenOptionsPage}>
                     <SettingsIcon />
                 </IconButton>
             </Grid>

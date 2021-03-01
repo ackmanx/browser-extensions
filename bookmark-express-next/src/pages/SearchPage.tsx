@@ -6,6 +6,7 @@ import AppContext from '../context/AppContext'
 import { buildCache } from '../utils/cache'
 import { getCache, getUserOptions } from '../utils/storage'
 import { useAppContext } from '../utils/hooks'
+import {EditBookmark} from "../components/EditBookmark";
 
 interface Props {
     isCacheStale: boolean
@@ -37,6 +38,20 @@ export function SearchPage({ isCacheStale }: Props) {
         })()
     }, [isCacheStale])
 
+    let view
+
+    switch (context.viewMode) {
+        case 'add':
+            view = <EditBookmark />
+            break
+        case 'recent':
+        case 'search':
+            view = <Results />
+            break
+        default:
+            view = null
+    }
+
     return (
         <AppContext.Provider value={context}>
             {isLoading && (
@@ -47,7 +62,7 @@ export function SearchPage({ isCacheStale }: Props) {
             {!isLoading && (
                 <Container disableGutters>
                     <SearchBar />
-                    <Results />
+                    {view}
                 </Container>
             )}
         </AppContext.Provider>
