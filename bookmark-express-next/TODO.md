@@ -8,16 +8,17 @@ https://developer.mozilla.org/manifest.json
 
 ## Search bar actions
 Bookmark current page
-* Requires building a cache of folders and their dates added or used or something
-* Favorites
-    * Use Chip component
-    * Need to save these settings
-    * Need UI to add favorites
-    * Perhaps use the Options page
-* Recent
-    * Might be able to use dateGroupModified to get recently used folders
-* Browse folders
-    * Use TreeView component
+1. Folder support
+    * Browse folders
+        * Use TreeView component
+    * Recently used folders
+        * Might be able to use dateGroupModified to get recently used folders
+        * Does the recent bookmarks function return folders?
+    * Favorites
+        * Use Chip component
+        * Need to save these settings
+        * Need UI to add favorites
+        * Perhaps use the Options page
 
 ## Results actions
 Edit
