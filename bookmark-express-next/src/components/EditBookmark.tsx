@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 export function EditBookmark() {
     const classes = useStyles()
     const [activeTab, setActiveTab] = useState<Tabs.Tab>()
-    const [createDetails, setCreateDetails] = useState<Bookmarks.CreateDetails>()
+    const [createDetails, setCreateDetails] = useState<Bookmarks.CreateDetails>({})
 
     useEffect(() => {
         ;(async () => {
@@ -91,7 +91,7 @@ export function EditBookmark() {
                         onChange={(event: ChangeEvent<HTMLInputElement>) => handleTextChange(event, 'url')}
                     />
                     <div className={classes.sectionSpacing}>
-                        <FolderSelection onFolderSelect={handleSelectFolder} />
+                        <FolderSelection createDetails={createDetails} onFolderSelect={handleSelectFolder} />
                     </div>
                     <Button variant='contained' color='primary' onClick={handleAddBookmark}>
                         Add Bookmark

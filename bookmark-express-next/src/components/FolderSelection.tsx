@@ -3,6 +3,7 @@ import {
     Accordion as MuiAccordion,
     AccordionDetails as MuiAccordionDetails,
     AccordionSummary as MuiAccordionSummary,
+    Chip,
     makeStyles,
     Typography,
     withStyles,
@@ -13,6 +14,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import TreeItem from '@material-ui/lab/TreeItem'
 import { getFolders, getRecentFolders, isFolder } from '../utils/misc'
 import { Node } from '../react-app-env'
+import { Bookmarks } from 'webextension-polyfill-ts'
 
 const Accordion = withStyles({
     root: {
@@ -56,19 +58,28 @@ const AccordionDetails = withStyles((theme) => ({
 }))(MuiAccordionDetails)
 
 interface Props {
+    createDetails: Bookmarks.CreateDetails
     onFolderSelect: (parentId: string) => void
 }
 
-const useStyles = makeStyles({
-    treeRoot: {
+const useStyles = makeStyles((theme) => ({
+    browseFolders: {
         width: '100%',
     },
-})
+    recentFolders: {
+        display: 'flex',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        '& > *': {
+            margin: theme.spacing(0.5),
+        },
+    },
+}))
 
-export function FolderSelection({ onFolderSelect }: Props) {
+export function FolderSelection({ createDetails, onFolderSelect }: Props) {
     const classes = useStyles()
     const [allFolders, setAllFolders] = useState<Node>()
-    const [recentFolders, setRecentFolders] = useState<Node[]>()
+    const [recentFolders, setRecentFolders] = useState<Node[]>([])
     const [expanded, setExpanded] = React.useState('')
 
     useEffect(() => {
@@ -108,8 +119,15 @@ export function FolderSelection({ onFolderSelect }: Props) {
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography>Recently Used</Typography>
                 </AccordionSummary>
-                <AccordionDetails>
-                    <Typography>Recently Used</Typography>
+                <AccordionDetails className={classes.recentFolders}>
+                    {recentFolders.map((folder) => (
+                        <Chip
+                            key={folder.id}
+                            label={folder.title}
+                            color={folder.id === createDetails.parentId ? 'primary' : 'default'}
+                            onClick={() => onFolderSelect(folder.id)}
+                        />
+                    ))}
                 </AccordionDetails>
             </Accordion>
 
@@ -119,7 +137,7 @@ export function FolderSelection({ onFolderSelect }: Props) {
                 </AccordionSummary>
                 <AccordionDetails>
                     <TreeView
-                        className={classes.treeRoot}
+                        className={classes.browseFolders}
                         defaultCollapseIcon={<ExpandMoreIcon />}
                         defaultExpandIcon={<ChevronRightIcon />}
                         defaultExpanded={['0']}
