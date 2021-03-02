@@ -3,6 +3,7 @@ import {
     Accordion as MuiAccordion,
     AccordionDetails as MuiAccordionDetails,
     AccordionSummary as MuiAccordionSummary,
+    makeStyles,
     Typography,
     withStyles,
 } from '@material-ui/core'
@@ -58,7 +59,14 @@ interface Props {
     onFolderSelect: (parentId: string) => void
 }
 
+const useStyles = makeStyles({
+    treeRoot: {
+        width: '100%',
+    },
+})
+
 export function FolderSelection({ onFolderSelect }: Props) {
+    const classes = useStyles()
     const [allFolders, setAllFolders] = useState<Bookmarks.BookmarkTreeNode>()
     const [expanded, setExpanded] = React.useState('')
 
@@ -108,6 +116,7 @@ export function FolderSelection({ onFolderSelect }: Props) {
                 </AccordionSummary>
                 <AccordionDetails>
                     <TreeView
+                        className={classes.treeRoot}
                         defaultCollapseIcon={<ExpandMoreIcon />}
                         defaultExpandIcon={<ChevronRightIcon />}
                         defaultExpanded={['0']}
