@@ -112,7 +112,9 @@ export function FolderSelection({ onFolderSelect }: Props) {
                         defaultExpandIcon={<ChevronRightIcon />}
                         defaultExpanded={['0']}
                     >
-                        {renderFolderTree(allFolders)}
+                        {renderFolderTree(allFolders?.children?.[0])}
+                        {renderFolderTree(allFolders?.children?.[1])}
+                        {renderFolderTree(allFolders?.children?.[2])}
                     </TreeView>
                 </AccordionDetails>
             </Accordion>
