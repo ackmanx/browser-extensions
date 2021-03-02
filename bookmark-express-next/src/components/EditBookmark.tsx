@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
-import { Avatar, Button, Grid, InputAdornment, makeStyles, Paper, TextField } from '@material-ui/core'
+import { Avatar, Button, Grid, InputAdornment, makeStyles, Paper, TextField, Typography } from '@material-ui/core'
 import { Bookmarks, browser, Tabs } from 'webextension-polyfill-ts'
 import { FolderSelection } from './FolderSelection'
 
@@ -9,17 +9,15 @@ const useStyles = makeStyles((theme) => ({
             borderColor: '#3576CB !important',
         },
     },
-    form: {
-        '& .MuiTextField-root': {
-            margin: theme.spacing(1),
-        },
-    },
-    marginBottom: {
-        marginBottom: theme.spacing(1),
+    sectionSpacing: {
+        marginBottom: theme.spacing(2),
     },
     paper: {
         marginTop: theme.spacing(1),
-        padding: theme.spacing(1),
+        padding: theme.spacing(2),
+    },
+    header: {
+        paddingBottom: theme.spacing(1),
     },
 }))
 
@@ -57,9 +55,12 @@ export function EditBookmark() {
         <Paper className={classes.paper} elevation={3}>
             <Grid container>
                 <Grid item xs={12}>
+                    <Typography className={classes.header} variant='h6'>
+                        Bookmark Current Page
+                    </Typography>
                     <TextField
                         fullWidth
-                        className={`${classes.input} ${classes.marginBottom}`}
+                        className={`${classes.input} ${classes.sectionSpacing}`}
                         variant='outlined'
                         value={bookmark?.title}
                         InputLabelProps={{ shrink: true }}
@@ -75,22 +76,17 @@ export function EditBookmark() {
                     <TextField
                         fullWidth
                         multiline
-                        className={`${classes.input} ${classes.marginBottom}`}
+                        className={`${classes.input} ${classes.sectionSpacing}`}
                         rows={4}
                         variant='outlined'
                         value={bookmark?.url}
                         InputLabelProps={{ shrink: true }}
                         onChange={(event: ChangeEvent<HTMLInputElement>) => handleTextChange(event, 'url')}
                     />
-                    <div className={classes.marginBottom}>
+                    <div className={classes.sectionSpacing}>
                         <FolderSelection />
                     </div>
-                    <Button
-                        className={classes.marginBottom}
-                        variant='contained'
-                        color='primary'
-                        onClick={handleAddBookmark}
-                    >
+                    <Button variant='contained' color='primary' onClick={handleAddBookmark}>
                         Add Bookmark
                     </Button>
                 </Grid>
