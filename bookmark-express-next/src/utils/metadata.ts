@@ -1,7 +1,8 @@
-import { Bookmarks, browser } from 'webextension-polyfill-ts'
+import { browser } from 'webextension-polyfill-ts'
 import md5 from 'md5'
-import { getMetadata, getBookmarksHash, saveBookmarksHash, saveMetadata } from './storage'
+import { getBookmarksHash, getMetadata, saveBookmarksHash, saveMetadata } from './storage'
 import { isFolder } from './misc'
+import { Node } from '../react-app-env'
 
 export interface Metadata {
     bookmarks: Record<string, BookmarkMetadataEntry>
@@ -42,19 +43,16 @@ export async function buildMetadata() {
     return metadata
 }
 
-function processNode(
-    bookmarkNode: Bookmarks.BookmarkTreeNode,
-    folderNameStack: string[],
-    freshMetadata: Metadata,
-    staleMetadata: Metadata
-) {
+function processNode(bookmarkNode: Node, folderNameStack: string[], freshMetadata: Metadata, staleMetadata: Metadata) {
     //Every node has a title except the root node, and we don't want that in the breadcrumbs
     if (bookmarkNode.title) {
         folderNameStack.push(bookmarkNode.title)
     }
 
     if (isFolder(bookmarkNode)) {
-        bookmarkNode.children?.forEach((childNode) => processNode(childNode, folderNameStack, freshMetadata, staleMetadata))
+        bookmarkNode.children?.forEach((childNode) =>
+            processNode(childNode, folderNameStack, freshMetadata, staleMetadata)
+        )
     } else {
         freshMetadata.bookmarks[bookmarkNode.id] = {
             breadcrumbs: folderNameStack.slice(0, -1).join(' / '),

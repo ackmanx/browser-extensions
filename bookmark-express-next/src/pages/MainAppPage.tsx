@@ -6,7 +6,7 @@ import AppContext from '../context/AppContext'
 import { buildMetadata } from '../utils/metadata'
 import { getMetadata, getUserOptions } from '../utils/storage'
 import { useAppContext } from '../utils/hooks'
-import {EditBookmark} from "../components/EditBookmark";
+import { EditBookmark } from '../components/EditBookmark'
 
 interface Props {
     isMetadataStale: boolean

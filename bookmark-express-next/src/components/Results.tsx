@@ -10,9 +10,9 @@ import {
 } from '@material-ui/core'
 import AppContext from '../context/AppContext'
 import { highlightText, isFolder } from '../utils/misc'
-import { Bookmarks } from 'webextension-polyfill-ts'
 import { saveMetadata } from '../utils/storage'
 import { ResultActions } from './ResultActions'
+import { Node } from '../react-app-env'
 
 const useStyles = makeStyles({
     title: {
@@ -43,7 +43,7 @@ export function Results() {
 
     if (!context.results.length) return null
 
-    async function handleOpenBookmark(bookmark: Bookmarks.BookmarkTreeNode) {
+    async function handleOpenBookmark(bookmark: Node) {
         // Updating directly being the extension closes after this anyway
         context.metadata.bookmarks[bookmark.id].timesAccessed++
         await saveMetadata(context.metadata)
@@ -51,7 +51,7 @@ export function Results() {
         window.open(bookmark.url)
     }
 
-    let bookmarks = context.results.filter((bookmark: Bookmarks.BookmarkTreeNode) => !isFolder(bookmark))
+    let bookmarks: Node[] = context.results.filter((bookmark: Node) => !isFolder(bookmark))
 
     if (context.viewMode === 'search') {
         bookmarks = bookmarks.sort(

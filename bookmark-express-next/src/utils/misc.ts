@@ -1,8 +1,7 @@
-import { Bookmarks, browser } from 'webextension-polyfill-ts'
+import { browser } from 'webextension-polyfill-ts'
+import { Node } from '../react-app-env'
 
-// type Node = Bookmarks.BookmarkTreeNode
-
-export function isFolder(bookmark: Bookmarks.BookmarkTreeNode) {
+export function isFolder(bookmark: Node) {
     //Folders can't have URLs
     return !bookmark.url
 }
@@ -38,10 +37,10 @@ export async function getFolders() {
     const bookmarks = (await browser.bookmarks.getTree())[0]
     bookmarks.title = 'All Folders'
 
-    return removeBookmarks(bookmarks, {} as Bookmarks.BookmarkTreeNode)
+    return removeBookmarks(bookmarks, {} as Node)
 }
 
-function removeBookmarks(node: Bookmarks.BookmarkTreeNode, parentNode: Bookmarks.BookmarkTreeNode) {
+function removeBookmarks(node: Node, parentNode: Node) {
     if (node.children) {
         node.children.map((child) => removeBookmarks(child, node))
     } else {
@@ -51,17 +50,15 @@ function removeBookmarks(node: Bookmarks.BookmarkTreeNode, parentNode: Bookmarks
     return node
 }
 
-export function getRecentFolders(folders: Bookmarks.BookmarkTreeNode) {
-    const flattened = flattenFolders(folders, [] as Bookmarks.BookmarkTreeNode[])
+export function getRecentFolders(folders: Node) {
+    const flattened = flattenFolders(folders, [] as Node[])
 
-    const sorted = flattened.sort(
-        (a: Bookmarks.BookmarkTreeNode, b: Bookmarks.BookmarkTreeNode) => b.dateGroupModified - a.dateGroupModified
-    )
+    const sorted = flattened.sort((a: Node, b: Node) => (b.dateGroupModified ?? 0) - (a.dateGroupModified ?? 0))
 
     return sorted
 }
 
-function flattenFolders(node: Bookmarks.BookmarkTreeNode, recentFolders: Bookmarks.BookmarkTreeNode[]) {
+function flattenFolders(node: Node, recentFolders: Node[]) {
     if (node.children) {
         if (node.dateGroupModified) {
             recentFolders.push(node)

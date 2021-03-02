@@ -1,13 +1,13 @@
 import { useState } from 'react'
-import { Metadata, defaultMetadata } from './metadata'
+import { defaultMetadata, Metadata } from './metadata'
 import { defaultUserOptions, UserOptions } from './options'
-import { Bookmarks } from 'webextension-polyfill-ts'
-import {AppContextInterface, ViewMode} from '../context/AppContext'
+import { AppContextInterface, ViewMode } from '../context/AppContext'
+import { Node } from '../react-app-env'
 
 export function useAppContext() {
     const [metadata, setMetadata] = useState<Metadata>(defaultMetadata)
     const [userOptions, setUserOptions] = useState<UserOptions>(defaultUserOptions)
-    const [results, setResults] = useState<Bookmarks.BookmarkTreeNode[]>([])
+    const [results, setResults] = useState<Node[]>([])
     const [query, setQuery] = useState<string>('')
     const [viewMode, setViewMode] = useState<ViewMode>('')
 

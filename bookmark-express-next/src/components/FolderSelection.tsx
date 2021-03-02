@@ -11,8 +11,8 @@ import TreeView from '@material-ui/lab/TreeView'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import TreeItem from '@material-ui/lab/TreeItem'
-import { Bookmarks } from 'webextension-polyfill-ts'
-import { getRecentFolders, getFolders, isFolder } from '../utils/misc'
+import { getFolders, getRecentFolders, isFolder } from '../utils/misc'
+import { Node } from '../react-app-env'
 
 const Accordion = withStyles({
     root: {
@@ -67,8 +67,8 @@ const useStyles = makeStyles({
 
 export function FolderSelection({ onFolderSelect }: Props) {
     const classes = useStyles()
-    const [allFolders, setAllFolders] = useState<Bookmarks.BookmarkTreeNode>()
-    const [recentFolders, setRecentFolders] = useState<Bookmarks.BookmarkTreeNode[]>()
+    const [allFolders, setAllFolders] = useState<Node>()
+    const [recentFolders, setRecentFolders] = useState<Node[]>()
     const [expanded, setExpanded] = React.useState('')
 
     useEffect(() => {
@@ -83,7 +83,7 @@ export function FolderSelection({ onFolderSelect }: Props) {
         setExpanded(isExpanded ? panel : false)
     }
 
-    const renderFolderTree = (node: Bookmarks.BookmarkTreeNode | undefined) => {
+    const renderFolderTree = (node: Node | undefined) => {
         if (!node || !isFolder(node)) return null
 
         return (
