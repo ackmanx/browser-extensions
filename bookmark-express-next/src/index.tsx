@@ -2,7 +2,7 @@ import '@fontsource/roboto'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { App } from './App'
-import { isCacheStale } from './utils/cache'
+import { isCacheStale } from './utils/metadata'
 import { ErrorBoundary } from './components/ErrorBoundary'
 
 const page = new URLSearchParams(window.location.search).get('page') ?? ''

@@ -3,7 +3,7 @@ import { CircularProgress, Container, makeStyles } from '@material-ui/core'
 import { Results } from '../components/Results'
 import { SearchBar } from '../components/SearchBar'
 import AppContext from '../context/AppContext'
-import { buildCache } from '../utils/cache'
+import { buildCache } from '../utils/metadata'
 import { getCache, getUserOptions } from '../utils/storage'
 import { useAppContext } from '../utils/hooks'
 import {EditBookmark} from "../components/EditBookmark";

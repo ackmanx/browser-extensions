@@ -3,7 +3,7 @@ import md5 from 'md5'
 import { getCache, getBookmarksHash, saveBookmarksHash, saveCache } from './storage'
 import { isFolder } from './misc'
 
-export interface Cache {
+export interface Metadata {
     bookmarks: Record<string, BookmarkCacheEntry>
 }
 
@@ -13,7 +13,7 @@ interface BookmarkCacheEntry {
     justDeleted: boolean
 }
 
-export const defaultCache: Cache = {
+export const defaultCache: Metadata = {
     bookmarks: {},
 }
 
@@ -45,8 +45,8 @@ export async function buildCache() {
 function processNode(
     bookmarkNode: Bookmarks.BookmarkTreeNode,
     folderNameStack: string[],
-    freshCache: Cache,
-    staleCache: Cache
+    freshCache: Metadata,
+    staleCache: Metadata
 ) {
     //Every node has a title except the root node, and we don't want that in the breadcrumbs
     if (bookmarkNode.title) {

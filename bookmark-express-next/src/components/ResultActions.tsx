@@ -3,7 +3,7 @@ import { IconButton, Menu, MenuItem } from '@material-ui/core'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import AppContext from '../context/AppContext'
 import { saveCache } from '../utils/storage'
-import { Cache } from '../utils/cache'
+import { Metadata } from '../utils/metadata'
 import { browser } from 'webextension-polyfill-ts'
 
 interface Props {
@@ -31,8 +31,8 @@ export function ResultActions({ bookmarkId }: Props) {
     }
 
     const handleResetCount = async (bookmarkId: string) => {
-        context.setCache((prevCache: Cache) => {
-            const newCache: Cache = JSON.parse(JSON.stringify(prevCache))
+        context.setCache((prevCache: Metadata) => {
+            const newCache: Metadata = JSON.parse(JSON.stringify(prevCache))
             newCache.bookmarks[bookmarkId].timesAccessed = 0
 
             saveCache(newCache)
