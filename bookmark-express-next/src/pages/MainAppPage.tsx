@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     },
 })
 
-export function SearchPage({ isMetadataStale }: Props) {
+export function MainAppPage({ isMetadataStale }: Props) {
     const classes = useStyles()
     const context = useAppContext()
     const [isLoading, setIsLoading] = useState<boolean>(true)
