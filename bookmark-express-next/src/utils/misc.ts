@@ -51,11 +51,9 @@ function removeBookmarks(node: Node, parentNode: Node) {
 }
 
 export function getRecentFolders(folders: Node) {
-    const flattened = flattenFolders(folders, [] as Node[])
-
-    const sorted = flattened.sort((a: Node, b: Node) => (b.dateGroupModified ?? 0) - (a.dateGroupModified ?? 0))
-
-    return sorted
+    return flattenFolders(folders, [] as Node[])
+        .sort((a: Node, b: Node) => (b.dateGroupModified ?? 0) - (a.dateGroupModified ?? 0))
+        .slice(0, 14)
 }
 
 function flattenFolders(node: Node, recentFolders: Node[]) {
