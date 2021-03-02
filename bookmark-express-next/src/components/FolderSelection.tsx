@@ -12,7 +12,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import TreeItem from '@material-ui/lab/TreeItem'
 import { Bookmarks } from 'webextension-polyfill-ts'
-import { getFolders, isFolder } from '../utils/misc'
+import { getRecentFolders, getFolders, isFolder } from '../utils/misc'
 
 const Accordion = withStyles({
     root: {
@@ -68,11 +68,14 @@ const useStyles = makeStyles({
 export function FolderSelection({ onFolderSelect }: Props) {
     const classes = useStyles()
     const [allFolders, setAllFolders] = useState<Bookmarks.BookmarkTreeNode>()
+    const [recentFolders, setRecentFolders] = useState<Bookmarks.BookmarkTreeNode[]>()
     const [expanded, setExpanded] = React.useState('')
 
     useEffect(() => {
         ;(async () => {
-            setAllFolders(await getFolders())
+            const folders = await getFolders()
+            setAllFolders(folders)
+            setRecentFolders(getRecentFolders(folders))
         })()
     }, [])
 

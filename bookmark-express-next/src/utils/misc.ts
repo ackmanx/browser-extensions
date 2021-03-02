@@ -1,5 +1,7 @@
 import { Bookmarks, browser } from 'webextension-polyfill-ts'
 
+// type Node = Bookmarks.BookmarkTreeNode
+
 export function isFolder(bookmark: Bookmarks.BookmarkTreeNode) {
     //Folders can't have URLs
     return !bookmark.url
@@ -47,4 +49,26 @@ function removeBookmarks(node: Bookmarks.BookmarkTreeNode, parentNode: Bookmarks
     }
 
     return node
+}
+
+export function getRecentFolders(folders: Bookmarks.BookmarkTreeNode) {
+    const flattened = flattenFolders(folders, [] as Bookmarks.BookmarkTreeNode[])
+
+    const sorted = flattened.sort(
+        (a: Bookmarks.BookmarkTreeNode, b: Bookmarks.BookmarkTreeNode) => b.dateGroupModified - a.dateGroupModified
+    )
+
+    return sorted
+}
+
+function flattenFolders(node: Bookmarks.BookmarkTreeNode, recentFolders: Bookmarks.BookmarkTreeNode[]) {
+    if (node.children) {
+        if (node.dateGroupModified) {
+            recentFolders.push(node)
+        }
+
+        node.children.map((child) => flattenFolders(child, recentFolders))
+    }
+
+    return recentFolders
 }
