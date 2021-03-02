@@ -54,7 +54,11 @@ const AccordionDetails = withStyles((theme) => ({
     },
 }))(MuiAccordionDetails)
 
-export function FolderSelection() {
+interface Props {
+    onFolderSelect: (parentId: string) => void
+}
+
+export function FolderSelection({ onFolderSelect }: Props) {
     const [allFolders, setAllFolders] = useState<Bookmarks.BookmarkTreeNode>()
     const [expanded, setExpanded] = React.useState('')
 
@@ -72,7 +76,7 @@ export function FolderSelection() {
         if (!node || !isFolder(node)) return null
 
         return (
-            <TreeItem key={node.id} nodeId={node.id} label={node.title}>
+            <TreeItem key={node.id} nodeId={node.id} label={node.title} onClick={() => onFolderSelect(node.id)}>
                 {Array.isArray(node.children) ? node.children.map((node) => renderFolderTree(node)) : null}
             </TreeItem>
         )

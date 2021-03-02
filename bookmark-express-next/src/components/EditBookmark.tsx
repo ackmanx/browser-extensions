@@ -24,14 +24,14 @@ const useStyles = makeStyles((theme) => ({
 export function EditBookmark() {
     const classes = useStyles()
     const [activeTab, setActiveTab] = useState<Tabs.Tab>()
-    const [bookmark, setBookmark] = useState<Bookmarks.CreateDetails>()
+    const [createDetails, setCreateDetails] = useState<Bookmarks.CreateDetails>()
 
     useEffect(() => {
         ;(async () => {
             const tab = (await browser.tabs.query({ active: true }))[0]
 
             setActiveTab(tab)
-            setBookmark({
+            setCreateDetails({
                 title: tab.title,
                 url: tab.url,
             })
@@ -39,15 +39,22 @@ export function EditBookmark() {
     }, [])
 
     const handleTextChange = (event: ChangeEvent<HTMLInputElement>, key: string) => {
-        setBookmark((prevState) => ({
+        setCreateDetails((prevState) => ({
             ...prevState,
             [key]: event.target.value,
         }))
     }
 
+    const handleSelectFolder = (parentId: string) => {
+        setCreateDetails((prevState) => ({
+            ...prevState,
+            parentId,
+        }))
+    }
+
     const handleAddBookmark = async () => {
-        if (!bookmark) return
-        await browser.bookmarks.create(bookmark)
+        if (!createDetails) return
+        await browser.bookmarks.create(createDetails)
         window.close()
     }
 
@@ -62,7 +69,7 @@ export function EditBookmark() {
                         fullWidth
                         className={`${classes.input} ${classes.sectionSpacing}`}
                         variant='outlined'
-                        value={bookmark?.title}
+                        value={createDetails?.title}
                         InputLabelProps={{ shrink: true }}
                         InputProps={{
                             startAdornment: (
@@ -79,12 +86,12 @@ export function EditBookmark() {
                         className={`${classes.input} ${classes.sectionSpacing}`}
                         rows={4}
                         variant='outlined'
-                        value={bookmark?.url}
+                        value={createDetails?.url}
                         InputLabelProps={{ shrink: true }}
                         onChange={(event: ChangeEvent<HTMLInputElement>) => handleTextChange(event, 'url')}
                     />
                     <div className={classes.sectionSpacing}>
-                        <FolderSelection />
+                        <FolderSelection onFolderSelect={handleSelectFolder} />
                     </div>
                     <Button variant='contained' color='primary' onClick={handleAddBookmark}>
                         Add Bookmark
