@@ -6,8 +6,8 @@ import { UserOptions } from '../utils/options'
 export type ViewMode = 'search' | 'recent' | 'add' | ''
 
 export interface AppContextInterface {
-    cache: Metadata
-    setCache: (cache: Metadata | ((prevCache: Metadata) => Metadata)) => void
+    metadata: Metadata
+    setMetadata: (metadata: Metadata | ((prevMetadata: Metadata) => Metadata)) => void
     results: Bookmarks.BookmarkTreeNode[]
     setResults: (newResults: Bookmarks.BookmarkTreeNode[]) => void
     query: string

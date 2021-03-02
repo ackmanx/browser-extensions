@@ -15,7 +15,7 @@ isMetadataStale().then((result) => {
     ReactDOM.render(
         <React.StrictMode>
             <ErrorBoundary>
-                <App isCacheStale={result} page={page} />
+                <App isMetadataStale={result} page={page} />
             </ErrorBoundary>
         </React.StrictMode>,
         document.getElementById('react')

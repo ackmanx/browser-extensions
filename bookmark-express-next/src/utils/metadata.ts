@@ -1,6 +1,6 @@
 import { Bookmarks, browser } from 'webextension-polyfill-ts'
 import md5 from 'md5'
-import { getCache, getBookmarksHash, saveBookmarksHash, saveCache } from './storage'
+import { getMetadata, getBookmarksHash, saveBookmarksHash, saveMetadata } from './storage'
 import { isFolder } from './misc'
 
 export interface Metadata {
@@ -35,9 +35,9 @@ export async function isMetadataStale() {
  */
 export async function buildMetadata() {
     const rootBookmarkTree = (await browser.bookmarks.getTree())[0]
-    const metadata = processNode(rootBookmarkTree, [], { ...defaultMetadata }, await getCache())
+    const metadata = processNode(rootBookmarkTree, [], { ...defaultMetadata }, await getMetadata())
 
-    await saveCache(metadata)
+    await saveMetadata(metadata)
 
     return metadata
 }

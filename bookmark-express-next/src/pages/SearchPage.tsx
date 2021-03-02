@@ -4,12 +4,12 @@ import { Results } from '../components/Results'
 import { SearchBar } from '../components/SearchBar'
 import AppContext from '../context/AppContext'
 import { buildMetadata } from '../utils/metadata'
-import { getCache, getUserOptions } from '../utils/storage'
+import { getMetadata, getUserOptions } from '../utils/storage'
 import { useAppContext } from '../utils/hooks'
 import {EditBookmark} from "../components/EditBookmark";
 
 interface Props {
-    isCacheStale: boolean
+    isMetadataStale: boolean
 }
 
 const useStyles = makeStyles({
@@ -19,24 +19,24 @@ const useStyles = makeStyles({
     },
 })
 
-export function SearchPage({ isCacheStale }: Props) {
+export function SearchPage({ isMetadataStale }: Props) {
     const classes = useStyles()
     const context = useAppContext()
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
     useEffect(() => {
         ;(async () => {
-            if (isCacheStale) {
+            if (isMetadataStale) {
                 console.log(777, 'Changes to bookmarks detected... rebuilding metadata cache')
-                context.setCache(await buildMetadata())
+                context.setMetadata(await buildMetadata())
             } else {
-                context.setCache(await getCache())
+                context.setMetadata(await getMetadata())
             }
 
             context.setUserOptions(await getUserOptions())
             setIsLoading(false)
         })()
-    }, [isCacheStale])
+    }, [isMetadataStale])
 
     let view
 

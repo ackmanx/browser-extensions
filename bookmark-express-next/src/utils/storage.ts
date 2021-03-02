@@ -12,12 +12,12 @@ export async function saveBookmarksHash(bookmarksHash: string) {
     await browser.storage.local.set({ bookmarksHash })
 }
 
-export async function getCache(): Promise<Metadata> {
-    return (await browser.storage.local.get({ cache: defaultMetadata })).cache
+export async function getMetadata(): Promise<Metadata> {
+    return (await browser.storage.local.get({ metadata: defaultMetadata })).metadata
 }
 
-export async function saveCache(cache: Metadata) {
-    await browser.storage.local.set({ cache })
+export async function saveMetadata(metadata: Metadata) {
+    await browser.storage.local.set({ metadata })
 }
 
 export async function getUserOptions(): Promise<UserOptions> {

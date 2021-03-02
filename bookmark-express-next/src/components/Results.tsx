@@ -11,7 +11,7 @@ import {
 import AppContext from '../context/AppContext'
 import { highlightText, isFolder } from '../utils/misc'
 import { Bookmarks } from 'webextension-polyfill-ts'
-import { saveCache } from '../utils/storage'
+import { saveMetadata } from '../utils/storage'
 import { ResultActions } from './ResultActions'
 
 const useStyles = makeStyles({
@@ -45,8 +45,8 @@ export function Results() {
 
     async function handleOpenBookmark(bookmark: Bookmarks.BookmarkTreeNode) {
         // Updating directly being the extension closes after this anyway
-        context.cache.bookmarks[bookmark.id].timesAccessed++
-        await saveCache(context.cache)
+        context.metadata.bookmarks[bookmark.id].timesAccessed++
+        await saveMetadata(context.metadata)
 
         window.open(bookmark.url)
     }
@@ -55,14 +55,14 @@ export function Results() {
 
     if (context.viewMode === 'search') {
         bookmarks = bookmarks.sort(
-            (a, b) => context.cache.bookmarks[b.id].timesAccessed - context.cache.bookmarks[a.id].timesAccessed
+            (a, b) => context.metadata.bookmarks[b.id].timesAccessed - context.metadata.bookmarks[a.id].timesAccessed
         )
     }
 
     return (
         <List>
             {bookmarks.map((bookmark) => {
-                const metaForResult = context.cache.bookmarks[bookmark.id]
+                const metaForResult = context.metadata.bookmarks[bookmark.id]
                 const titleWithHighlights = highlightText(bookmark.title, context.query)
                 const urlWithHighlights = highlightText(bookmark.url ?? '', context.query)
 

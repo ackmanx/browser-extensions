@@ -3,10 +3,10 @@ import { OptionsPage } from './pages/OptionsPage'
 import { SearchPage } from './pages/SearchPage'
 
 interface Props {
-    isCacheStale: boolean
+    isMetadataStale: boolean
     page: string
 }
 
-export const App = ({ isCacheStale, page }: Props) => {
-    return page === 'options' ? <OptionsPage /> : <SearchPage isCacheStale={isCacheStale} />
+export const App = ({ isMetadataStale, page }: Props) => {
+    return page === 'options' ? <OptionsPage /> : <SearchPage isMetadataStale={isMetadataStale} />
 }

@@ -2,7 +2,7 @@ import React, { MouseEvent, useContext } from 'react'
 import { IconButton, Menu, MenuItem } from '@material-ui/core'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import AppContext from '../context/AppContext'
-import { saveCache } from '../utils/storage'
+import { saveMetadata } from '../utils/storage'
 import { Metadata } from '../utils/metadata'
 import { browser } from 'webextension-polyfill-ts'
 
@@ -23,21 +23,21 @@ export function ResultActions({ bookmarkId }: Props) {
     const handleDelete = async (bookmarkId: string) => {
         await browser.bookmarks.remove(bookmarkId)
 
-        // React won't re-render from this because it's a no-no, so set cache afterwards with a new reference
-        context.cache.bookmarks[bookmarkId].justDeleted = true
-        context.setCache({ ...context.cache })
+        // React won't re-render from this assignment because I'm not using the setter, so set metadata afterwards with a new reference
+        context.metadata.bookmarks[bookmarkId].justDeleted = true
+        context.setMetadata({ ...context.metadata })
 
         handleCloseMenu()
     }
 
     const handleResetCount = async (bookmarkId: string) => {
-        context.setCache((prevCache: Metadata) => {
-            const newCache: Metadata = JSON.parse(JSON.stringify(prevCache))
-            newCache.bookmarks[bookmarkId].timesAccessed = 0
+        context.setMetadata((prevMetadata: Metadata) => {
+            const newMetadata: Metadata = JSON.parse(JSON.stringify(prevMetadata))
+            newMetadata.bookmarks[bookmarkId].timesAccessed = 0
 
-            saveCache(newCache)
+            saveMetadata(newMetadata)
 
-            return newCache
+            return newMetadata
         })
 
         handleCloseMenu()
