@@ -3,7 +3,7 @@ import { CircularProgress, Container, makeStyles } from '@material-ui/core'
 import { Results } from '../components/Results'
 import { SearchBar } from '../components/SearchBar'
 import AppContext from '../context/AppContext'
-import { buildCache } from '../utils/metadata'
+import { buildMetadata } from '../utils/metadata'
 import { getCache, getUserOptions } from '../utils/storage'
 import { useAppContext } from '../utils/hooks'
 import {EditBookmark} from "../components/EditBookmark";
@@ -27,8 +27,8 @@ export function SearchPage({ isCacheStale }: Props) {
     useEffect(() => {
         ;(async () => {
             if (isCacheStale) {
-                console.log(777, 'Changes to bookmarks detected... rebuilding cache')
-                context.setCache(await buildCache())
+                console.log(777, 'Changes to bookmarks detected... rebuilding metadata cache')
+                context.setCache(await buildMetadata())
             } else {
                 context.setCache(await getCache())
             }

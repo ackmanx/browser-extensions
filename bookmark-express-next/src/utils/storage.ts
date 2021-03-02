@@ -1,5 +1,5 @@
 import { browser } from 'webextension-polyfill-ts'
-import { Metadata, defaultCache } from './metadata'
+import { Metadata, defaultMetadata } from './metadata'
 import { defaultUserOptions, UserOptions } from './options'
 
 browser.storage.local.get().then((contents) => console.log(777, 'Storage contents:', contents))
@@ -13,7 +13,7 @@ export async function saveBookmarksHash(bookmarksHash: string) {
 }
 
 export async function getCache(): Promise<Metadata> {
-    return (await browser.storage.local.get({ cache: defaultCache })).cache
+    return (await browser.storage.local.get({ cache: defaultMetadata })).cache
 }
 
 export async function saveCache(cache: Metadata) {

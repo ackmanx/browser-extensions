@@ -4,20 +4,20 @@ import { getCache, getBookmarksHash, saveBookmarksHash, saveCache } from './stor
 import { isFolder } from './misc'
 
 export interface Metadata {
-    bookmarks: Record<string, BookmarkCacheEntry>
+    bookmarks: Record<string, BookmarkMetadataEntry>
 }
 
-interface BookmarkCacheEntry {
+interface BookmarkMetadataEntry {
     breadcrumbs: string
     timesAccessed: number
     justDeleted: boolean
 }
 
-export const defaultCache: Metadata = {
+export const defaultMetadata: Metadata = {
     bookmarks: {},
 }
 
-export async function isCacheStale() {
+export async function isMetadataStale() {
     const { children: bookmarks } = (await browser.bookmarks.getTree())[0]
 
     const freshHash = md5(JSON.stringify(bookmarks))
@@ -29,24 +29,24 @@ export async function isCacheStale() {
 }
 
 /*
- * Re-builds the cache, but not something is scraped
- * To avoid a memory leak, we start fresh so we don't keep data from deleted bookmarks
+ * Re-builds the metadata we persist in storage
+ * To avoid a memory leak, we start fresh so we don't keep stale data from deleted bookmarks
  * But, we keep the data for timesAccessed, for example, because that won't change between rebuilds
  */
-export async function buildCache() {
+export async function buildMetadata() {
     const rootBookmarkTree = (await browser.bookmarks.getTree())[0]
-    const cache = processNode(rootBookmarkTree, [], { ...defaultCache }, await getCache())
+    const metadata = processNode(rootBookmarkTree, [], { ...defaultMetadata }, await getCache())
 
-    await saveCache(cache)
+    await saveCache(metadata)
 
-    return cache
+    return metadata
 }
 
 function processNode(
     bookmarkNode: Bookmarks.BookmarkTreeNode,
     folderNameStack: string[],
-    freshCache: Metadata,
-    staleCache: Metadata
+    freshMetadata: Metadata,
+    staleMetadata: Metadata
 ) {
     //Every node has a title except the root node, and we don't want that in the breadcrumbs
     if (bookmarkNode.title) {
@@ -54,16 +54,16 @@ function processNode(
     }
 
     if (isFolder(bookmarkNode)) {
-        bookmarkNode.children?.forEach((childNode) => processNode(childNode, folderNameStack, freshCache, staleCache))
+        bookmarkNode.children?.forEach((childNode) => processNode(childNode, folderNameStack, freshMetadata, staleMetadata))
     } else {
-        freshCache.bookmarks[bookmarkNode.id] = {
+        freshMetadata.bookmarks[bookmarkNode.id] = {
             breadcrumbs: folderNameStack.slice(0, -1).join(' / '),
-            timesAccessed: staleCache.bookmarks[bookmarkNode.id]?.timesAccessed ?? 0,
+            timesAccessed: staleMetadata.bookmarks[bookmarkNode.id]?.timesAccessed ?? 0,
             justDeleted: false,
         }
     }
 
     folderNameStack.pop()
 
-    return freshCache
+    return freshMetadata
 }
