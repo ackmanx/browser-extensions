@@ -7,13 +7,10 @@ Then I could store the location of one in the config to use and fallback to regu
 https://developer.mozilla.org/manifest.json
 
 ## Search bar actions
-Bookmark current page
-1. Folder support
+Folder support
     * Favorites
         * Use Chip component
         * Need to save these settings
-        * Need UI to add favorites
-        * Perhaps use the Options page
 
 ## Results actions
 Edit

@@ -12,9 +12,9 @@
     "options_page": "index.html?page=options",
     "permissions": ["activeTab", "bookmarks", "chrome://favicon/", "storage"],
     "icons": {
-        "16": "images/icon16-prod.png",
-        "48": "images/icon48-prod.png",
-        "128": "images/icon128-prod.png"
+        "16": "images/icon16.png",
+        "48": "images/icon48.png",
+        "128": "images/icon128.png"
     },
     "commands": {
         "_execute_browser_action": {
