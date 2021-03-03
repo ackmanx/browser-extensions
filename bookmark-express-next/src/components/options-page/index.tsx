@@ -121,7 +121,11 @@ export function OptionsPage() {
                     })}
                 </Paper>
                 <Paper className={classes.paper} elevation={3}>
-                    <BrowseFolders mode='favorites' favoriteFolders={favoriteFolders} onFolderSelect={handleFolderSelect} />
+                    <BrowseFolders
+                        mode='favorites'
+                        favoriteFolders={favoriteFolders}
+                        onFolderSelect={handleFolderSelect}
+                    />
                 </Paper>
             </Paper>
         </Container>
