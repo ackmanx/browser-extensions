@@ -18,6 +18,8 @@ Bookmark current page
 ## Results actions
 Edit
 
+## Write package node script
+
 ## Browse
 
 ## Search folders
