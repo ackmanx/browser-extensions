@@ -74,6 +74,13 @@ const useStyles = makeStyles((theme) => ({
             margin: theme.spacing(0.5),
         },
     },
+    treeItem: {
+        '& .MuiTreeItem-label': {
+            display: 'flex',
+            alignItems: 'center',
+            height: '40px',
+        },
+    },
 }))
 
 export function FolderSelection({ createDetails, onFolderSelect }: Props) {
@@ -98,7 +105,13 @@ export function FolderSelection({ createDetails, onFolderSelect }: Props) {
         if (!node || !isFolder(node)) return null
 
         return (
-            <TreeItem key={node.id} nodeId={node.id} label={node.title} onClick={() => onFolderSelect(node.id)}>
+            <TreeItem
+                key={node.id}
+                nodeId={node.id}
+                label={node.title}
+                className={classes.treeItem}
+                onClick={() => onFolderSelect(node.id)}
+            >
                 {Array.isArray(node.children) ? node.children.map((node) => renderFolderTree(node)) : null}
             </TreeItem>
         )

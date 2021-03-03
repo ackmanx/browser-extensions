@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     paper: {
         padding: theme.spacing(2),
     },
-    root: {
+    favoritesContainer: {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -154,7 +154,7 @@ export function OptionsPage() {
                 <Typography className={classes.header} variant='h5'>
                     Favorites
                 </Typography>
-                <Paper elevation={3} component='ul' className={classes.root}>
+                <Paper elevation={3} component='ul' className={classes.favoritesContainer}>
                     {!chipData.length && <Typography>Select a favorite below and it will show here</Typography>}
                     {chipData.map((data) => {
                         return (
