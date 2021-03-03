@@ -26,12 +26,6 @@ const useStyles = makeStyles((theme) => ({
     chip: {
         margin: theme.spacing(0.5),
     },
-    treeItem: {
-        '& .MuiTreeItem-label': {
-            display: 'flex',
-            alignItems: 'center',
-        },
-    },
 }))
 
 export function OptionsPage() {
@@ -101,22 +95,17 @@ export function OptionsPage() {
                         label='Show breadcrumbs in results'
                     />
                 </FormGroup>
+
                 <Typography className={classes.header} variant='h5'>
                     Favorites
                 </Typography>
                 <Paper elevation={3} component='ul' className={classes.favoritesContainer}>
                     {!favoriteFolders.length && <Typography>Select a favorite below and it will show here</Typography>}
-                    {favoriteFolders.map((favorite) => {
-                        return (
-                            <li key={favorite.id}>
-                                <Chip
-                                    label={favorite.title}
-                                    onDelete={handleDelete(favorite)}
-                                    className={classes.chip}
-                                />
-                            </li>
-                        )
-                    })}
+                    {favoriteFolders.map((favorite) => (
+                        <li key={favorite.id}>
+                            <Chip label={favorite.title} onDelete={handleDelete(favorite)} className={classes.chip} />
+                        </li>
+                    ))}
                 </Paper>
                 <Paper className={classes.paper} elevation={3}>
                     <BrowseFolders
