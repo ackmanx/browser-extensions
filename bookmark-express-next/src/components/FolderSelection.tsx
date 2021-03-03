@@ -125,6 +125,7 @@ export function FolderSelection({ createDetails, onFolderSelect }: Props) {
                             key={folder.id}
                             label={folder.title}
                             color={folder.id === createDetails.parentId ? 'primary' : 'default'}
+                            variant={folder.id === createDetails.parentId ? 'default' : 'outlined'}
                             onClick={() => onFolderSelect(folder.id)}
                         />
                     ))}
