@@ -9,10 +9,6 @@ https://developer.mozilla.org/manifest.json
 ## Search bar actions
 Bookmark current page
 1. Folder support
-    * Browse folders
-        * Use TreeView component
-    * Recently used folders
-        * Might be able to use dateGroupModified to get recently used folders
     * Favorites
         * Use Chip component
         * Need to save these settings
@@ -21,8 +17,3 @@ Bookmark current page
 
 ## Results actions
 Edit
-
-## Options
-Open bookmark in current tab
-    https://developer.chrome.com/docs/extensions/mv2/manifest/activeTab/
-    https://stackoverflow.com/questions/27747067/how-do-i-open-a-link-in-the-current-tab-for-my-chrome-extension
