@@ -38,6 +38,7 @@ export function OptionsPage() {
     const classes = useStyles()
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [userOptions, setUserOptions] = useState<UserOptions>(defaultUserOptions)
+    const [favoriteFolders, setFavoriteFolders] = React.useState<any[]>([])
 
     useEffect(() => {
         ;(async () => {
@@ -46,10 +47,8 @@ export function OptionsPage() {
         })()
     }, [])
 
-    const [chipData, setChipData] = React.useState<any[]>([])
-
-    const handleDelete = (chipToDelete: any) => () => {
-        setChipData((chips) => chips.filter((chip) => chip.key !== chipToDelete.key))
+    const handleDelete = (folderToDelete: any) => () => {
+        setFavoriteFolders((prevFavorites) => prevFavorites.filter((favorite) => favorite.id !== folderToDelete.id))
     }
 
     async function handleToggle(option: UserOptionKey) {
@@ -68,19 +67,19 @@ export function OptionsPage() {
     const handleFolderSelect = (folder: Node, event: MouseEvent<HTMLElement>) => {
         event.preventDefault()
 
-        const folderIndex = chipData.findIndex((favoritedFolder: any) => {
-            return favoritedFolder.key === folder.id
+        const folderIndex = favoriteFolders.findIndex((favoritedFolder: any) => {
+            return favoritedFolder.id === folder.id
         })
 
         if (folderIndex > -1) {
-            return setChipData((prevChips) => {
-                const chips = [...prevChips]
-                chips.splice(folderIndex, 1)
-                return chips
+            return setFavoriteFolders((prevFavorites) => {
+                const favorites = [...prevFavorites]
+                favorites.splice(folderIndex, 1)
+                return favorites
             })
         }
 
-        setChipData((chips) => [...chips, { key: folder.id, label: folder.title }])
+        setFavoriteFolders((prevFavorites) => [...prevFavorites, { id: folder.id, title: folder.title }])
     }
 
     return isLoading ? null : (
@@ -108,13 +107,13 @@ export function OptionsPage() {
                     Favorites
                 </Typography>
                 <Paper elevation={3} component='ul' className={classes.favoritesContainer}>
-                    {!chipData.length && <Typography>Select a favorite below and it will show here</Typography>}
-                    {chipData.map((data) => {
+                    {!favoriteFolders.length && <Typography>Select a favorite below and it will show here</Typography>}
+                    {favoriteFolders.map((favorite) => {
                         return (
-                            <li key={data.key}>
+                            <li key={favorite.id}>
                                 <Chip
-                                    label={data.label}
-                                    onDelete={data.label === 'React' ? undefined : handleDelete(data)}
+                                    label={favorite.title}
+                                    onDelete={handleDelete(favorite)}
                                     className={classes.chip}
                                 />
                             </li>
@@ -122,7 +121,7 @@ export function OptionsPage() {
                     })}
                 </Paper>
                 <Paper className={classes.paper} elevation={3}>
-                    <BrowseFolders mode='favorites' onFolderSelect={handleFolderSelect} />
+                    <BrowseFolders mode='favorites' favoriteFolders={favoriteFolders} onFolderSelect={handleFolderSelect} />
                 </Paper>
             </Paper>
         </Container>
