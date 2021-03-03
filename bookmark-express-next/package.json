@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "scripts": {
         "build": "react-scripts build",
-        "build:watch": "cra-build-watch",
+        "build:watch": "cra-build-watch --verbose",
         "prettier": "prettier --config ./prettier.config.js --write './**/*.{js,json,ts,tsx}'"
     },
     "dependencies": {

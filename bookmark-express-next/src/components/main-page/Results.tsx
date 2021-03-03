@@ -8,11 +8,11 @@ import {
     ListItemText,
     makeStyles,
 } from '@material-ui/core'
-import AppContext from '../context/AppContext'
-import { highlightText, isFolder } from '../utils/misc'
-import { saveMetadata } from '../utils/storage'
+import AppContext from '../../context/AppContext'
+import { highlightText, isFolder } from '../../utils/misc'
+import { saveMetadata } from '../../utils/storage'
 import { ResultActions } from './ResultActions'
-import { Node } from '../react-app-env'
+import { Node } from '../../react-app-env'
 
 const useStyles = makeStyles({
     title: {

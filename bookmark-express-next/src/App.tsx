@@ -1,6 +1,6 @@
 import React from 'react'
-import { OptionsPage } from './components/options-page/OptionsPage'
-import { MainAppPage } from './pages/MainAppPage'
+import { OptionsPage } from './components/options-page'
+import { MainPage } from './components/main-page'
 
 interface Props {
     isMetadataStale: boolean
@@ -8,5 +8,5 @@ interface Props {
 }
 
 export const App = ({ isMetadataStale, page }: Props) => {
-    return page === 'options' ? <OptionsPage /> : <MainAppPage isMetadataStale={isMetadataStale} />
+    return page === 'options' ? <OptionsPage /> : <MainPage isMetadataStale={isMetadataStale} />
 }

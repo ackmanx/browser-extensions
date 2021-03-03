@@ -1,9 +1,9 @@
 import React, { MouseEvent, useContext } from 'react'
 import { IconButton, Menu, MenuItem } from '@material-ui/core'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
-import AppContext from '../context/AppContext'
-import { saveMetadata } from '../utils/storage'
-import { Metadata } from '../utils/metadata'
+import AppContext from '../../context/AppContext'
+import { saveMetadata } from '../../utils/storage'
+import { Metadata } from '../../utils/metadata'
 import { browser } from 'webextension-polyfill-ts'
 
 interface Props {

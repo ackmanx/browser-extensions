@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { CircularProgress, Container, makeStyles } from '@material-ui/core'
-import { Results } from '../components/Results'
-import { SearchBar } from '../components/SearchBar'
-import AppContext from '../context/AppContext'
-import { buildMetadata } from '../utils/metadata'
-import { getMetadata, getUserOptions } from '../utils/storage'
-import { useAppContext } from '../utils/hooks'
-import { EditBookmark } from '../components/EditBookmark'
+import { Results } from './Results'
+import { SearchBar } from './SearchBar'
+import AppContext from '../../context/AppContext'
+import { buildMetadata } from '../../utils/metadata'
+import { getMetadata, getUserOptions } from '../../utils/storage'
+import { useAppContext } from '../../utils/hooks'
+import { EditBookmark } from './EditBookmark'
 
 interface Props {
     isMetadataStale: boolean
@@ -19,24 +19,27 @@ const useStyles = makeStyles({
     },
 })
 
-export function MainAppPage({ isMetadataStale }: Props) {
+export function MainPage({ isMetadataStale }: Props) {
     const classes = useStyles()
     const context = useAppContext()
     const [isLoading, setIsLoading] = useState<boolean>(true)
+
+    const setMetadata = context.setMetadata
+    const setUserOptions = context.setUserOptions
 
     useEffect(() => {
         ;(async () => {
             if (isMetadataStale) {
                 console.log(777, 'Changes to bookmarks detected... rebuilding metadata cache')
-                context.setMetadata(await buildMetadata())
+                setMetadata(await buildMetadata())
             } else {
-                context.setMetadata(await getMetadata())
+                setMetadata(await getMetadata())
             }
 
-            context.setUserOptions(await getUserOptions())
+            setUserOptions(await getUserOptions())
             setIsLoading(false)
         })()
-    }, [isMetadataStale])
+    }, [isMetadataStale, setMetadata, setUserOptions])
 
     let view
 

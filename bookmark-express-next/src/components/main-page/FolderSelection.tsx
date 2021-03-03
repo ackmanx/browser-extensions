@@ -12,8 +12,8 @@ import TreeView from '@material-ui/lab/TreeView'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import TreeItem from '@material-ui/lab/TreeItem'
-import { getFolders, getRecentFolders, isFolder } from '../utils/misc'
-import { Node } from '../react-app-env'
+import { getFolders, getRecentFolders, isFolder } from '../../utils/misc'
+import { Node } from '../../react-app-env'
 import { Bookmarks } from 'webextension-polyfill-ts'
 
 const Accordion = withStyles({
