@@ -10,13 +10,13 @@ import {
     Switch,
     Typography,
 } from '@material-ui/core'
-import { getUserOptions, saveUserOptions } from '../utils/storage'
-import { defaultUserOptions, UserOptionKey, UserOptions } from '../utils/options'
+import { getUserOptions, saveUserOptions } from '../../utils/storage'
+import { defaultUserOptions, UserOptionKey, UserOptions } from '../../utils/options'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import TreeView from '@material-ui/lab/TreeView'
-import { Node } from '../react-app-env'
-import { getFolders, isFolder } from '../utils/misc'
+import { Node } from '../../react-app-env'
+import { getFolders, isFolder } from '../../utils/misc'
 import TreeItem from '@material-ui/lab/TreeItem'
 import StarIcon from '@material-ui/icons/Star'
 import StarOutlineIcon from '@material-ui/icons/StarOutline'

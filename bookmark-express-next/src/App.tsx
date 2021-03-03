@@ -1,5 +1,5 @@
 import React from 'react'
-import { OptionsPage } from './pages/OptionsPage'
+import { OptionsPage } from './components/options-page/OptionsPage'
 import { MainAppPage } from './pages/MainAppPage'
 
 interface Props {
