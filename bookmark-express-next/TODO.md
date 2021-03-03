@@ -21,3 +21,5 @@ Edit
 
 ## Search folders
 If I do this, I could have it bring you to browse at that folder
+
+## Change highlight color for tree to match theme

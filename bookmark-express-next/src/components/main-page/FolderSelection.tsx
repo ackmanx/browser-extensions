@@ -8,13 +8,11 @@ import {
     Typography,
     withStyles,
 } from '@material-ui/core'
-import TreeView from '@material-ui/lab/TreeView'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import ChevronRightIcon from '@material-ui/icons/ChevronRight'
-import TreeItem from '@material-ui/lab/TreeItem'
-import { getFolders, getRecentFolders, isFolder } from '../../utils/misc'
+import { getFolders, getRecentFolders } from '../../utils/misc'
 import { Node } from '../../react-app-env'
 import { Bookmarks } from 'webextension-polyfill-ts'
+import { BrowseFolders } from '../BrowseFolders'
 
 const Accordion = withStyles({
     root: {
@@ -63,9 +61,6 @@ interface Props {
 }
 
 const useStyles = makeStyles((theme) => ({
-    browseFolders: {
-        width: '100%',
-    },
     recentFolders: {
         display: 'flex',
         justifyContent: 'center',
@@ -74,52 +69,28 @@ const useStyles = makeStyles((theme) => ({
             margin: theme.spacing(0.5),
         },
     },
-    treeItem: {
-        '& .MuiTreeItem-label': {
-            display: 'flex',
-            alignItems: 'center',
-            height: '40px',
-        },
-    },
 }))
 
 export function FolderSelection({ createDetails, onFolderSelect }: Props) {
     const classes = useStyles()
-    const [allFolders, setAllFolders] = useState<Node>()
     const [recentFolders, setRecentFolders] = useState<Node[]>([])
     const [expanded, setExpanded] = React.useState('')
 
     useEffect(() => {
-        ;(async () => {
-            const folders = await getFolders()
-            setAllFolders(folders)
-            setRecentFolders(getRecentFolders(folders))
-        })()
+        async function stupid() {
+            setRecentFolders(getRecentFolders(await getFolders()))
+        }
+
+        stupid()
     }, [])
 
-    const handleChange = (panel: any) => (event: any, isExpanded: any) => {
+    const handleToggleAccordion = (panel: any) => (event: any, isExpanded: any) => {
         setExpanded(isExpanded ? panel : false)
-    }
-
-    const renderFolderTree = (node: Node | undefined) => {
-        if (!node || !isFolder(node)) return null
-
-        return (
-            <TreeItem
-                key={node.id}
-                nodeId={node.id}
-                label={node.title}
-                className={classes.treeItem}
-                onClick={() => onFolderSelect(node.id)}
-            >
-                {Array.isArray(node.children) ? node.children.map((node) => renderFolderTree(node)) : null}
-            </TreeItem>
-        )
     }
 
     return (
         <>
-            <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+            <Accordion expanded={expanded === 'panel1'} onChange={handleToggleAccordion('panel1')}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography>Favorites</Typography>
                 </AccordionSummary>
@@ -128,7 +99,7 @@ export function FolderSelection({ createDetails, onFolderSelect }: Props) {
                 </AccordionDetails>
             </Accordion>
 
-            <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+            <Accordion expanded={expanded === 'panel2'} onChange={handleToggleAccordion('panel2')}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography>Recently Used</Typography>
                 </AccordionSummary>
@@ -145,21 +116,12 @@ export function FolderSelection({ createDetails, onFolderSelect }: Props) {
                 </AccordionDetails>
             </Accordion>
 
-            <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+            <Accordion expanded={expanded === 'panel3'} onChange={handleToggleAccordion('panel3')}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography>Browse</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <TreeView
-                        className={classes.browseFolders}
-                        defaultCollapseIcon={<ExpandMoreIcon />}
-                        defaultExpandIcon={<ChevronRightIcon />}
-                        defaultExpanded={['0']}
-                    >
-                        {renderFolderTree(allFolders?.children?.[0])}
-                        {renderFolderTree(allFolders?.children?.[1])}
-                        {renderFolderTree(allFolders?.children?.[2])}
-                    </TreeView>
+                    <BrowseFolders onFolderSelect={onFolderSelect} />
                 </AccordionDetails>
             </Accordion>
         </>
