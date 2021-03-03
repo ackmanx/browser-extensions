@@ -1,5 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { Chip, Container, FormControlLabel, FormGroup, makeStyles, Paper, Switch, Typography } from '@material-ui/core'
+import {
+    Chip,
+    Container,
+    FormControlLabel,
+    FormGroup,
+    IconButton,
+    makeStyles,
+    Paper,
+    Switch,
+    Typography,
+} from '@material-ui/core'
 import { getUserOptions, saveUserOptions } from '../utils/storage'
 import { defaultUserOptions, UserOptionKey, UserOptions } from '../utils/options'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
@@ -8,6 +18,8 @@ import TreeView from '@material-ui/lab/TreeView'
 import { Node } from '../react-app-env'
 import { getFolders, isFolder } from '../utils/misc'
 import TreeItem from '@material-ui/lab/TreeItem'
+import StarIcon from '@material-ui/icons/Star'
+import StarOutlineIcon from '@material-ui/icons/StarOutline'
 
 const useStyles = makeStyles((theme) => ({
     header: {
@@ -32,6 +44,12 @@ const useStyles = makeStyles((theme) => ({
     },
     browseFolders: {
         width: '100%',
+    },
+    treeItem: {
+        '& .MuiTreeItem-label': {
+            display: 'flex',
+            alignItems: 'center',
+        },
     },
 }))
 
@@ -72,18 +90,40 @@ export function OptionsPage() {
 
     const handleFolderSelect = (event: any, node: any) => {
         event.preventDefault()
+
+        const folderIndex = chipData.findIndex((favoritedFolder: any) => {
+            return favoritedFolder.key === node.id
+        })
+
+        if (folderIndex > -1) {
+            return setChipData((prevChips) => {
+                const chips = [...prevChips]
+                chips.splice(folderIndex, 1)
+                return chips
+            })
+        }
+
         setChipData((chips) => [...chips, { key: node.id, label: node.title }])
     }
 
     const renderFolderTree = (node: Node | undefined) => {
         if (!node || !isFolder(node)) return null
 
+        const isFolderFavorited = chipData.some((favoritedFolder) => favoritedFolder.key === node.id)
+
         return (
             <TreeItem
                 key={node.id}
                 nodeId={node.id}
-                label={node.title}
-                onLabelClick={(event) => handleFolderSelect(event, node)}
+                label={
+                    <>
+                        {node.title}
+                        <IconButton tabIndex={-1} onClick={(event) => handleFolderSelect(event, node)}>
+                            {isFolderFavorited ? <StarIcon fontSize='small' /> : <StarOutlineIcon fontSize='small' />}
+                        </IconButton>
+                    </>
+                }
+                className={classes.treeItem}
             >
                 {Array.isArray(node.children) ? node.children.map((node) => renderFolderTree(node)) : null}
             </TreeItem>
