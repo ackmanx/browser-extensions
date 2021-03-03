@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(0.5),
         margin: theme.spacing(2, 0),
         minHeight: '45px',
-        color: 'gray'
+        color: 'gray',
     },
     chip: {
         margin: theme.spacing(0.5),
