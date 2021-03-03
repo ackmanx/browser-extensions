@@ -7,7 +7,9 @@ import { ErrorBoundary } from './components/ErrorBoundary'
 
 const page = new URLSearchParams(window.location.search).get('page') ?? ''
 
-if (page !== 'options') {
+if (page === 'options') {
+    document.title = 'Bookmark Express Next - Options'
+} else {
     document.head.insertAdjacentHTML('beforeend', '<link rel=stylesheet href=/popup.css>')
 }
 
