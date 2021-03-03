@@ -3,7 +3,7 @@ import { Chip, Container, FormControlLabel, FormGroup, makeStyles, Paper, Switch
 import { getUserOptions, saveUserOptions } from '../../utils/storage'
 import { defaultUserOptions, UserOptionKey, UserOptions } from '../../utils/options'
 import { BrowseFolders } from '../BrowseFolders'
-import { Node } from '../../react-app-env'
+import { Favorite, Node } from '../../react-app-env'
 
 const useStyles = makeStyles((theme) => ({
     header: {
@@ -38,7 +38,7 @@ export function OptionsPage() {
     const classes = useStyles()
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [userOptions, setUserOptions] = useState<UserOptions>(defaultUserOptions)
-    const [favoriteFolders, setFavoriteFolders] = React.useState<any[]>([])
+    const [favoriteFolders, setFavoriteFolders] = React.useState<Favorite[]>([])
 
     useEffect(() => {
         ;(async () => {
@@ -47,7 +47,7 @@ export function OptionsPage() {
         })()
     }, [])
 
-    const handleDelete = (folderToDelete: any) => () => {
+    const handleDelete = (folderToDelete: Favorite) => () => {
         setFavoriteFolders((prevFavorites) => prevFavorites.filter((favorite) => favorite.id !== folderToDelete.id))
     }
 
@@ -67,9 +67,7 @@ export function OptionsPage() {
     const handleFolderSelect = (folder: Node, event: MouseEvent<HTMLElement>) => {
         event.preventDefault()
 
-        const folderIndex = favoriteFolders.findIndex((favoritedFolder: any) => {
-            return favoritedFolder.id === folder.id
-        })
+        const folderIndex = favoriteFolders.findIndex((favoritedFolder: Favorite) => favoritedFolder.id === folder.id)
 
         if (folderIndex > -1) {
             return setFavoriteFolders((prevFavorites) => {

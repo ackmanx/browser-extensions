@@ -5,12 +5,12 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import TreeItem from '@material-ui/lab/TreeItem'
 import { getFolders, isFolder } from '../utils/misc'
-import { Node } from '../react-app-env'
+import { Favorite, Node } from '../react-app-env'
 import StarIcon from '@material-ui/icons/Star'
 import StarOutlineIcon from '@material-ui/icons/StarOutline'
 
 interface Props {
-    favoriteFolders: any[]
+    favoriteFolders?: Favorite[]
     mode: 'browse' | 'favorites'
     onFolderSelect: (folder: Node, event: MouseEvent<HTMLElement>) => void
 }
