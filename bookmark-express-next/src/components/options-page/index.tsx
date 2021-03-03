@@ -1,25 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import {
-    Chip,
-    Container,
-    FormControlLabel,
-    FormGroup,
-    IconButton,
-    makeStyles,
-    Paper,
-    Switch,
-    Typography,
-} from '@material-ui/core'
+import React, { useEffect, useState, MouseEvent } from 'react'
+import { Chip, Container, FormControlLabel, FormGroup, makeStyles, Paper, Switch, Typography } from '@material-ui/core'
 import { getUserOptions, saveUserOptions } from '../../utils/storage'
 import { defaultUserOptions, UserOptionKey, UserOptions } from '../../utils/options'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import ChevronRightIcon from '@material-ui/icons/ChevronRight'
-import TreeView from '@material-ui/lab/TreeView'
+import { BrowseFolders } from '../BrowseFolders'
 import { Node } from '../../react-app-env'
-import { getFolders, isFolder } from '../../utils/misc'
-import TreeItem from '@material-ui/lab/TreeItem'
-import StarIcon from '@material-ui/icons/Star'
-import StarOutlineIcon from '@material-ui/icons/StarOutline'
 
 const useStyles = makeStyles((theme) => ({
     header: {
@@ -42,9 +26,6 @@ const useStyles = makeStyles((theme) => ({
     chip: {
         margin: theme.spacing(0.5),
     },
-    browseFolders: {
-        width: '100%',
-    },
     treeItem: {
         '& .MuiTreeItem-label': {
             display: 'flex',
@@ -56,14 +37,10 @@ const useStyles = makeStyles((theme) => ({
 export function OptionsPage() {
     const classes = useStyles()
     const [isLoading, setIsLoading] = useState<boolean>(true)
-    const [allFolders, setAllFolders] = useState<Node>()
     const [userOptions, setUserOptions] = useState<UserOptions>(defaultUserOptions)
 
     useEffect(() => {
         ;(async () => {
-            const folders = await getFolders()
-            setAllFolders(folders)
-
             setUserOptions(await getUserOptions())
             setIsLoading(false)
         })()
@@ -88,11 +65,11 @@ export function OptionsPage() {
         })
     }
 
-    const handleFolderSelect = (event: any, node: any) => {
+    const handleFolderSelect = (folder: Node, event: MouseEvent<HTMLElement>) => {
         event.preventDefault()
 
         const folderIndex = chipData.findIndex((favoritedFolder: any) => {
-            return favoritedFolder.key === node.id
+            return favoritedFolder.key === folder.id
         })
 
         if (folderIndex > -1) {
@@ -103,31 +80,7 @@ export function OptionsPage() {
             })
         }
 
-        setChipData((chips) => [...chips, { key: node.id, label: node.title }])
-    }
-
-    const renderFolderTree = (node: Node | undefined) => {
-        if (!node || !isFolder(node)) return null
-
-        const isFolderFavorited = chipData.some((favoritedFolder) => favoritedFolder.key === node.id)
-
-        return (
-            <TreeItem
-                key={node.id}
-                nodeId={node.id}
-                label={
-                    <>
-                        {node.title}
-                        <IconButton tabIndex={-1} onClick={(event) => handleFolderSelect(event, node)}>
-                            {isFolderFavorited ? <StarIcon fontSize='small' /> : <StarOutlineIcon fontSize='small' />}
-                        </IconButton>
-                    </>
-                }
-                className={classes.treeItem}
-            >
-                {Array.isArray(node.children) ? node.children.map((node) => renderFolderTree(node)) : null}
-            </TreeItem>
-        )
+        setChipData((chips) => [...chips, { key: folder.id, label: folder.title }])
     }
 
     return isLoading ? null : (
@@ -169,16 +122,7 @@ export function OptionsPage() {
                     })}
                 </Paper>
                 <Paper className={classes.paper} elevation={3}>
-                    <TreeView
-                        className={classes.browseFolders}
-                        defaultCollapseIcon={<ExpandMoreIcon />}
-                        defaultExpandIcon={<ChevronRightIcon />}
-                        defaultExpanded={['0']}
-                    >
-                        {renderFolderTree(allFolders?.children?.[0])}
-                        {renderFolderTree(allFolders?.children?.[1])}
-                        {renderFolderTree(allFolders?.children?.[2])}
-                    </TreeView>
+                    <BrowseFolders mode='favorites' onFolderSelect={handleFolderSelect} />
                 </Paper>
             </Paper>
         </Container>

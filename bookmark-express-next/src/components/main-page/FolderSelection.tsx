@@ -14,6 +14,11 @@ import { Node } from '../../react-app-env'
 import { Bookmarks } from 'webextension-polyfill-ts'
 import { BrowseFolders } from '../BrowseFolders'
 
+interface Props {
+    createDetails: Bookmarks.CreateDetails
+    onFolderSelect: (folder: Node) => void
+}
+
 const Accordion = withStyles({
     root: {
         border: '1px solid rgba(0, 0, 0, .125)',
@@ -54,11 +59,6 @@ const AccordionDetails = withStyles((theme) => ({
         padding: theme.spacing(2),
     },
 }))(MuiAccordionDetails)
-
-interface Props {
-    createDetails: Bookmarks.CreateDetails
-    onFolderSelect: (parentId: string) => void
-}
 
 const useStyles = makeStyles((theme) => ({
     recentFolders: {
@@ -110,7 +110,7 @@ export function FolderSelection({ createDetails, onFolderSelect }: Props) {
                             label={folder.title}
                             color={folder.id === createDetails.parentId ? 'primary' : 'default'}
                             variant={folder.id === createDetails.parentId ? 'default' : 'outlined'}
-                            onClick={() => onFolderSelect(folder.id)}
+                            onClick={() => onFolderSelect(folder)}
                         />
                     ))}
                 </AccordionDetails>
@@ -121,7 +121,7 @@ export function FolderSelection({ createDetails, onFolderSelect }: Props) {
                     <Typography>Browse</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <BrowseFolders onFolderSelect={onFolderSelect} />
+                    <BrowseFolders mode='browse' onFolderSelect={onFolderSelect} />
                 </AccordionDetails>
             </Accordion>
         </>
