@@ -4,6 +4,7 @@
     "scripts": {
         "build": "react-scripts build",
         "build:watch": "cra-build-watch --verbose",
+        "prep": "bash prep-for-chrome-store.sh",
         "prettier": "prettier --config ./prettier.config.js --write './**/*.{js,json,ts,tsx}'"
     },
     "dependencies": {
