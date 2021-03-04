@@ -95,7 +95,7 @@ export function FolderSelection({ createDetails, onFolderSelect }: Props) {
         <>
             <Accordion expanded={expanded === 'panel1'} onChange={handleToggleAccordion('panel1')}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography>Favorites</Typography>
+                    <Typography>Favorite Folders</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     {favorites.map((folder) => (
@@ -111,7 +111,7 @@ export function FolderSelection({ createDetails, onFolderSelect }: Props) {
 
             <Accordion expanded={expanded === 'panel2'} onChange={handleToggleAccordion('panel2')}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography>Recently Used</Typography>
+                    <Typography>Recently Used Folders</Typography>
                 </AccordionSummary>
                 <AccordionDetails className={classes.recentFolders}>
                     {recentFolders.map((folder) => (
@@ -127,7 +127,7 @@ export function FolderSelection({ createDetails, onFolderSelect }: Props) {
 
             <Accordion expanded={expanded === 'panel3'} onChange={handleToggleAccordion('panel3')}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography>Browse</Typography>
+                    <Typography>Browse Folders</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <BrowseFolders mode='browse' onFolderSelect={onFolderSelect} />
