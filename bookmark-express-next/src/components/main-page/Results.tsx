@@ -17,7 +17,7 @@ import { Node } from 'react-app-env'
 const useStyles = makeStyles({
     title: {
         '& .search-hit': {
-            backgroundColor: '#3576CB',
+            backgroundColor: '#3f51b5',
             color: 'white',
         },
     },
@@ -28,7 +28,7 @@ const useStyles = makeStyles({
         wordBreak: 'break-all',
 
         '& .search-hit': {
-            backgroundColor: '#3576CB',
+            backgroundColor: '#3f51b5',
             color: 'white',
         },
     },

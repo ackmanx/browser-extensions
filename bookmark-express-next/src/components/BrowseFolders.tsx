@@ -25,6 +25,11 @@ const useStyles = makeStyles(() => ({
             alignItems: 'center',
             minHeight: '40px',
         },
+        '&.MuiTreeItem-root.Mui-selected:focus > .MuiTreeItem-content .MuiTreeItem-label': {
+            backgroundColor: '#3f51b5',
+            color: 'white',
+            borderRadius: '4px',
+        }
     },
 }))
 

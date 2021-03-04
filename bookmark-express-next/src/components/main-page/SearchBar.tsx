@@ -9,7 +9,7 @@ import { Add, History as RecentIcon } from '@material-ui/icons'
 const useStyles = makeStyles({
     search: {
         '&.Mui-focused fieldset': {
-            borderColor: '#3576CB !important',
+            borderColor: '#3f51b5 !important',
         },
     },
 })

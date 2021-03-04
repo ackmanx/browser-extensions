@@ -7,7 +7,7 @@ import { Node } from 'react-app-env'
 const useStyles = makeStyles((theme) => ({
     input: {
         '&.Mui-focused fieldset': {
-            borderColor: '#3576CB !important',
+            borderColor: '#3f51b5 !important',
         },
     },
     sectionSpacing: {
@@ -17,8 +17,12 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(1),
         padding: theme.spacing(2),
     },
-    header: {
+    heading: {
         paddingBottom: theme.spacing(1),
+    },
+    subHeading: {
+        padding: theme.spacing(1, 0.5),
+        fontSize: '1.2rem',
     },
 }))
 
@@ -63,9 +67,6 @@ export function EditBookmark() {
         <Paper className={classes.paper} elevation={3}>
             <Grid container>
                 <Grid item xs={12}>
-                    <Typography className={classes.header} variant='h6'>
-                        Bookmark Current Page
-                    </Typography>
                     <TextField
                         fullWidth
                         className={`${classes.input} ${classes.sectionSpacing}`}
