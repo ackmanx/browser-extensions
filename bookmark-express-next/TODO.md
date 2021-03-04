@@ -6,12 +6,6 @@ Then I could store the location of one in the config to use and fallback to regu
 
 https://developer.mozilla.org/manifest.json
 
-## Search bar actions
-Folder support
-    * Favorites
-        * Use Chip component
-        * Need to save these settings
-
 ## Results actions
 Edit
 
@@ -21,7 +15,5 @@ Edit
 
 ## Search folders
 If I do this, I could have it bring you to browse at that folder
-
-## Change highlight color for tree to match theme
 
 ## Can the storage api helpers use generics?
