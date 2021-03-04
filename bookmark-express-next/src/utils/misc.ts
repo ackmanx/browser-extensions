@@ -1,5 +1,5 @@
 import { browser } from 'webextension-polyfill-ts'
-import { Node } from '../react-app-env'
+import { Node } from 'react-app-env'
 
 export function isFolder(bookmark: Node) {
     //Folders can't have URLs

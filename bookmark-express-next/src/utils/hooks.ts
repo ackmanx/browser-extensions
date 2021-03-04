@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { defaultMetadata, Metadata } from './metadata'
 import { defaultUserOptions, UserOptions } from './options'
-import { AppContextInterface, ViewMode } from '../context/AppContext'
-import { Node } from '../react-app-env'
+import { AppContextInterface, ViewMode } from 'context/AppContext'
+import { Node } from 'react-app-env'
 
 export function useAppContext() {
     const [metadata, setMetadata] = useState<Metadata>(defaultMetadata)

@@ -2,8 +2,8 @@ import React, { ChangeEvent, useContext } from 'react'
 import { Grid, IconButton, makeStyles, OutlinedInput } from '@material-ui/core'
 import SettingsIcon from '@material-ui/icons/Settings'
 import { browser } from 'webextension-polyfill-ts'
-import AppContext from '../../context/AppContext'
-import { isFolder } from '../../utils/misc'
+import AppContext from 'context/AppContext'
+import { isFolder } from 'utils/misc'
 import { Add, History as RecentIcon } from '@material-ui/icons'
 
 const useStyles = makeStyles({

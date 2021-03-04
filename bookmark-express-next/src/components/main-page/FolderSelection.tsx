@@ -9,10 +9,10 @@ import {
     withStyles,
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import { getFolders, getRecentFolders } from '../../utils/misc'
-import { Node } from '../../react-app-env'
+import { getFolders, getRecentFolders } from 'utils/misc'
+import { Node } from 'react-app-env'
 import { Bookmarks } from 'webextension-polyfill-ts'
-import { BrowseFolders } from '../BrowseFolders'
+import { BrowseFolders } from 'components/BrowseFolders'
 
 interface Props {
     createDetails: Bookmarks.CreateDetails

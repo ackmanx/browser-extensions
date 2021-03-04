@@ -2,7 +2,7 @@ import { browser } from 'webextension-polyfill-ts'
 import md5 from 'md5'
 import { getBookmarksHash, getMetadata, saveBookmarksHash, saveMetadata } from './storage'
 import { isFolder } from './misc'
-import { Node } from '../react-app-env'
+import { Node } from 'react-app-env'
 
 export interface Metadata {
     bookmarks: Record<string, BookmarkMetadataEntry>

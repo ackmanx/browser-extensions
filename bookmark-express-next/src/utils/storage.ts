@@ -1,7 +1,7 @@
 import { browser } from 'webextension-polyfill-ts'
 import { Metadata, defaultMetadata } from './metadata'
 import { defaultUserOptions, UserOptions } from './options'
-import { Favorite } from '../react-app-env'
+import { Favorite } from 'react-app-env'
 
 browser.storage.local.get().then((contents) => console.log(777, 'Storage contents:', contents))
 

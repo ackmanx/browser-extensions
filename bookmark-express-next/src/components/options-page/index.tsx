@@ -1,9 +1,9 @@
 import React, { MouseEvent, useEffect, useState } from 'react'
 import { Chip, Container, FormControlLabel, FormGroup, makeStyles, Paper, Switch, Typography } from '@material-ui/core'
-import { getFavorites, getUserOptions, saveFavorites, saveUserOptions } from '../../utils/storage'
-import { defaultUserOptions, UserOptionKey, UserOptions } from '../../utils/options'
-import { BrowseFolders } from '../BrowseFolders'
-import { Favorite, Node } from '../../react-app-env'
+import { getFavorites, getUserOptions, saveFavorites, saveUserOptions } from 'utils/storage'
+import { defaultUserOptions, UserOptionKey, UserOptions } from 'utils/options'
+import { BrowseFolders } from 'components/BrowseFolders'
+import { Favorite, Node } from 'react-app-env'
 
 const useStyles = makeStyles((theme) => ({
     header: {

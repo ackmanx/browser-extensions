@@ -1,7 +1,7 @@
 import React from 'react'
-import { Metadata } from '../utils/metadata'
-import { UserOptions } from '../utils/options'
-import { Node } from '../react-app-env'
+import { Metadata } from 'utils/metadata'
+import { UserOptions } from 'utils/options'
+import { Node } from 'react-app-env'
 
 export type ViewMode = 'search' | 'recent' | 'add' | ''
 
