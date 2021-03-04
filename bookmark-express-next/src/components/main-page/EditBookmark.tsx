@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
-import { Avatar, Button, Grid, InputAdornment, makeStyles, Paper, TextField, Typography } from '@material-ui/core'
+import { Avatar, Button, Grid, InputAdornment, makeStyles, Paper, TextField } from '@material-ui/core'
 import { Bookmarks, browser, Tabs } from 'webextension-polyfill-ts'
 import { FolderSelection } from './FolderSelection'
 import { Node } from 'react-app-env'
