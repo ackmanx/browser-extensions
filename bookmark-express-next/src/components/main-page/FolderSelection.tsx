@@ -10,9 +10,10 @@ import {
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { getFolders, getRecentFolders } from 'utils/misc'
-import { Node } from 'react-app-env'
+import { Favorite, Node } from 'react-app-env'
 import { Bookmarks } from 'webextension-polyfill-ts'
 import { BrowseFolders } from 'components/BrowseFolders'
+import { getFavorites } from '../../utils/storage'
 
 interface Props {
     createDetails: Bookmarks.CreateDetails
@@ -74,11 +75,13 @@ const useStyles = makeStyles((theme) => ({
 export function FolderSelection({ createDetails, onFolderSelect }: Props) {
     const classes = useStyles()
     const [recentFolders, setRecentFolders] = useState<Node[]>([])
+    const [favorites, setFavorites] = useState<Favorite[]>([])
     const [expanded, setExpanded] = React.useState('')
 
     useEffect(() => {
         async function stupid() {
             setRecentFolders(getRecentFolders(await getFolders()))
+            setFavorites(await getFavorites())
         }
 
         stupid()
@@ -95,7 +98,14 @@ export function FolderSelection({ createDetails, onFolderSelect }: Props) {
                     <Typography>Favorites</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Typography>Favorites</Typography>
+                    {favorites.map((folder) => (
+                        <Chip
+                            key={folder.id}
+                            label={folder.title}
+                            color={folder.id === createDetails.parentId ? 'primary' : 'default'}
+                            onClick={() => onFolderSelect(folder)}
+                        />
+                    ))}
                 </AccordionDetails>
             </Accordion>
 
@@ -109,7 +119,6 @@ export function FolderSelection({ createDetails, onFolderSelect }: Props) {
                             key={folder.id}
                             label={folder.title}
                             color={folder.id === createDetails.parentId ? 'primary' : 'default'}
-                            variant={folder.id === createDetails.parentId ? 'default' : 'outlined'}
                             onClick={() => onFolderSelect(folder)}
                         />
                     ))}
