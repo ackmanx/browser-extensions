@@ -1,6 +1,6 @@
-import React, { useEffect, useState, MouseEvent } from 'react'
+import React, { MouseEvent, useEffect, useState } from 'react'
 import { Chip, Container, FormControlLabel, FormGroup, makeStyles, Paper, Switch, Typography } from '@material-ui/core'
-import { getUserOptions, saveUserOptions } from '../../utils/storage'
+import { getFavorites, getUserOptions, saveFavorites, saveUserOptions } from '../../utils/storage'
 import { defaultUserOptions, UserOptionKey, UserOptions } from '../../utils/options'
 import { BrowseFolders } from '../BrowseFolders'
 import { Favorite, Node } from '../../react-app-env'
@@ -37,15 +37,12 @@ export function OptionsPage() {
     useEffect(() => {
         ;(async () => {
             setUserOptions(await getUserOptions())
+            setFavoriteFolders(await getFavorites())
             setIsLoading(false)
         })()
     }, [])
 
-    const handleDelete = (folderToDelete: Favorite) => () => {
-        setFavoriteFolders((prevFavorites) => prevFavorites.filter((favorite) => favorite.id !== folderToDelete.id))
-    }
-
-    async function handleToggle(option: UserOptionKey) {
+    async function handleToggleOption(option: UserOptionKey) {
         setUserOptions((prevState) => {
             const newUserOptions = {
                 ...prevState,
@@ -58,7 +55,7 @@ export function OptionsPage() {
         })
     }
 
-    const handleFolderSelect = (folder: Node, event: MouseEvent<HTMLElement>) => {
+    const handleAddFavorite = (folder: Node, event: MouseEvent<HTMLElement>) => {
         event.preventDefault()
 
         const folderIndex = favoriteFolders.findIndex((favoritedFolder: Favorite) => favoritedFolder.id === folder.id)
@@ -71,7 +68,23 @@ export function OptionsPage() {
             })
         }
 
-        setFavoriteFolders((prevFavorites) => [...prevFavorites, { id: folder.id, title: folder.title }])
+        setFavoriteFolders((prevFavorites) => {
+            const newFavorites = [...prevFavorites, { id: folder.id, title: folder.title }]
+
+            ;(async () => await saveFavorites(newFavorites))()
+
+            return newFavorites
+        })
+    }
+
+    const handleDeleteFavorite = (folderToDelete: Favorite) => () => {
+        setFavoriteFolders((prevFavorites) => {
+            const newFavorites = prevFavorites.filter((favorite) => favorite.id !== folderToDelete.id)
+
+            ;(async () => await saveFavorites(newFavorites))()
+
+            return newFavorites
+        })
     }
 
     return isLoading ? null : (
@@ -82,14 +95,16 @@ export function OptionsPage() {
             <Paper elevation={3} className={classes.paper}>
                 <FormGroup>
                     <FormControlLabel
-                        control={<Switch checked={userOptions.showUrls} onChange={() => handleToggle('showUrls')} />}
+                        control={
+                            <Switch checked={userOptions.showUrls} onChange={() => handleToggleOption('showUrls')} />
+                        }
                         label='Show URLs in results'
                     />
                     <FormControlLabel
                         control={
                             <Switch
                                 checked={userOptions.showBreadcrumbs}
-                                onChange={() => handleToggle('showBreadcrumbs')}
+                                onChange={() => handleToggleOption('showBreadcrumbs')}
                             />
                         }
                         label='Show breadcrumbs in results'
@@ -103,7 +118,11 @@ export function OptionsPage() {
                     {!favoriteFolders.length && <Typography>Select a favorite below and it will show here</Typography>}
                     {favoriteFolders.map((favorite) => (
                         <li key={favorite.id}>
-                            <Chip label={favorite.title} onDelete={handleDelete(favorite)} className={classes.chip} />
+                            <Chip
+                                label={favorite.title}
+                                onDelete={handleDeleteFavorite(favorite)}
+                                className={classes.chip}
+                            />
                         </li>
                     ))}
                 </Paper>
@@ -111,7 +130,7 @@ export function OptionsPage() {
                     <BrowseFolders
                         mode='favorites'
                         favoriteFolders={favoriteFolders}
-                        onFolderSelect={handleFolderSelect}
+                        onFolderSelect={handleAddFavorite}
                     />
                 </Paper>
             </Paper>

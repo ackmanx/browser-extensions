@@ -1,6 +1,7 @@
 import { browser } from 'webextension-polyfill-ts'
 import { Metadata, defaultMetadata } from './metadata'
 import { defaultUserOptions, UserOptions } from './options'
+import { Favorite } from '../react-app-env'
 
 browser.storage.local.get().then((contents) => console.log(777, 'Storage contents:', contents))
 
@@ -26,4 +27,12 @@ export async function getUserOptions(): Promise<UserOptions> {
 
 export async function saveUserOptions(userOptions: UserOptions) {
     await browser.storage.local.set({ userOptions })
+}
+
+export async function getFavorites(): Promise<Favorite[]> {
+    return (await browser.storage.local.get({ favorites: [] })).favorites
+}
+
+export async function saveFavorites(favorites: Favorite[]) {
+    await browser.storage.local.set({ favorites })
 }
