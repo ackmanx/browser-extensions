@@ -4,6 +4,7 @@ import {
     AccordionDetails as MuiAccordionDetails,
     AccordionSummary as MuiAccordionSummary,
     Chip,
+    Grid,
     makeStyles,
     Typography,
     withStyles,
@@ -70,6 +71,7 @@ const useStyles = makeStyles((theme) => ({
             margin: theme.spacing(0.5),
         },
     },
+    noFavorites: { color: 'gray' },
 }))
 
 export function FolderSelection({ createDetails, onFolderSelect }: Props) {
@@ -98,6 +100,13 @@ export function FolderSelection({ createDetails, onFolderSelect }: Props) {
                     <Typography>Favorite Folders</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
+                    {!favorites.length && (
+                        <Grid container justify='center'>
+                            <Typography className={classes.noFavorites}>
+                                You can add folders to your favorites in the options
+                            </Typography>
+                        </Grid>
+                    )}
                     {favorites.map((folder) => (
                         <Chip
                             key={folder.id}

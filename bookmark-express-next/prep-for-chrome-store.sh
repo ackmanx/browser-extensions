@@ -1,3 +1,9 @@
+# Verify we're running in the correct directory
+if [ ! -d 'src' ]; then
+    echo 'Run this prep script from project root'
+    exit 1
+fi
+
 # Create a production bundle
 yarn build
 
@@ -9,5 +15,7 @@ rm build/images/*-dev.png
 # Remove old package
 rm zip-for-chrome-store.zip
 
+cd build
+
 # Create zip to upload to Chrome Store
-zip -r zip-for-chrome-store.zip build/*
+zip -r zip-for-chrome-store.zip *
