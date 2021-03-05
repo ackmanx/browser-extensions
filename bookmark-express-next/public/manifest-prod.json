@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Bookmark Express Next",
     "description": "This extension displays a list of your bookmarks filtered by instant search. That's it. Oh, and now you can edit them too.",
-    "version": "9.1",
+    "version": "9.2",
     "browser_action": {
         "default_popup": "index.html"
     },
