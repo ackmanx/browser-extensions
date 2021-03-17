@@ -59,13 +59,13 @@ export function SearchBar() {
                 />
             </Grid>
             <Grid item xs={3} container justify='center' alignItems='center'>
-                <IconButton title='Bookmark Current Page' onClick={handleBookmarkCurrentPage}>
+                <IconButton title='Bookmark Current Page' tabIndex={-1} onClick={handleBookmarkCurrentPage}>
                     <Add />
                 </IconButton>
-                <IconButton title='Show Recently Added Bookmarks' onClick={handleShowRecentlyAddedBookmarks}>
+                <IconButton title='Show Recently Added Bookmarks' tabIndex={-1} onClick={handleShowRecentlyAddedBookmarks}>
                     <RecentIcon />
                 </IconButton>
-                <IconButton title='Open Settings' onClick={handleOpenOptionsPage}>
+                <IconButton title='Open Settings' tabIndex={-1} onClick={handleOpenOptionsPage}>
                     <SettingsIcon />
                 </IconButton>
             </Grid>
